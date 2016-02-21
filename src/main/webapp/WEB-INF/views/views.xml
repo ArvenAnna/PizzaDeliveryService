@@ -5,16 +5,38 @@
     <definition name="template"
                 template="/WEB-INF/views/main_template.jsp"> <!-- Общий шаблон -->
    
-        <put-attribute name="header"
-                       value="/WEB-INF/views/header.jsp" />
+        <put-attribute name="menu"
+                       value="/WEB-INF/views/menu.jsp" />
         <put-attribute name="footer"
                        value="/WEB-INF/views/footer.jsp" />
+        <put-attribute name="basket"
+                       value="/WEB-INF/views/basket.jsp" />
+        <put-attribute name="grid_6-18"
+                       value="/WEB-INF/views/grid_6-18.jsp" />
         <put-attribute name="content" value="" />
-   
+       
     </definition>
- 
-    <definition name="home" extends="template">  <!-- Шаблон главной страницы -->
+    <!--<definition name="header+grid_8-8-8" template="/WEB-INF/views/header_grid_8-8-8.jsp">
+        <put-attribute name="header"
+                       value="/WEB-INF/views/header.jsp" />
+        <put-attribute name="grid_8-8-8"
+                       value="/WEB-INF/views/grid_8-8-8.jsp" />
+    </definition>    
+    <definition name="home" extends="template">  
         <put-attribute name="content" value="/WEB-INF/views/home.jsp" />
+        <put-attribute name="head" value="header+grid_8-8-8" />
+    </definition>-->
+    <definition name="header+grid_8-8-8" template="/WEB-INF/views/grid_6-18.jsp">
+        <put-attribute name="header"
+                       value="/WEB-INF/views/header.jsp" />
+        <put-attribute name="grid_8-8-8"
+                       value="/WEB-INF/views/grid_8-8-8.jsp" />
     </definition>
- 
+    
+    <definition name="home" extends="template">  <!-- Шаблон главной страницы -->
+        <put-attribute name="grid_6-18"
+                       value="header+grid_8-8-8" />
+        
+    </definition>
+
 </tiles-definitions>

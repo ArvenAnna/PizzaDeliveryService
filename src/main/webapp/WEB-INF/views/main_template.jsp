@@ -10,12 +10,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>gggggggggggggggg</title>
     </head>
     <body>
-        <%-- <tiles:insertAttribute name="header"/>--%>
-        <tiles:insertAttribute name="content"/>
-        <%--<tiles:insertAttribute name="footer"/>--%>
+        <tiles:insertAttribute name="menu"/>
+        <tiles:insertAttribute name="basket"/>
+        <tiles:insertAttribute name="grid_6-18"/>
+        <tiles:insertAttribute name="footer"/>
+    
     </body>
 </html>
