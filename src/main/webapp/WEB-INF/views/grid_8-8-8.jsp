@@ -8,7 +8,25 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="row">
     <div class="col-lg-8">
-        <div>pizza1</div>
+        <c:forEach var="pizza" items="${somePizzas}"> <!-- Цикл по списку сообщений -->
+            <div style="width: 300px; background-color: yellow; margin: 5%;">
+                <a href="">
+                    <div style="text-align: center;">
+                        <span><b><c:out value="${pizza.name}"/></b></span></br>
+                        <span><c:out value="${pizza.pizzaType}"/></span>
+                    </div>
+                    <img src="<s:url value="/resources"/>/foto/<c:out value="${pizza.foto}"/>" class="img-rounded"/>
+                </a>
+                <span><c:out value="${pizza.description}" /></span></br>
+                <div style="text-align: center;">
+                    <span>Cтоимость: <b><c:out value="${pizza.price}" /></b></span>
+                </div>
+                <button class="btn btn-success" style="margin-left: 115px;">Заказать</button>
+            </div>
+            <%-- <img src=
+                  "<s:url value="/resources"/>/foto.JPG"/> --%>
+
+        </c:forEach>  
     </div>
     <div class="col-lg-8">
         <div>pizza1</div>
@@ -17,20 +35,7 @@
         <div>pizza1</div>
     </div>
 </div>
+<script>
 
-<c:forEach var="pizza" items="${somePizzas}"> <!-- Цикл по списку сообщений -->
-    
-    <%-- <img src=
-         "<s:url value="/resources"/>/foto.JPG"
-         onError=
-         "this.src=’<s:url value="/resources/images"/>/spitter_avatar.png’;"/> --%>
+</script>
 
-        <c:out value="${pizza.id}"/>
-        <c:out value="${pizza.name}"/>
-        <c:out value="${pizza.pizzaType}"/>
-        <c:out value="${pizza.price}" />
-        <c:out value="${pizza.description}"/>
-        <c:out value="${pizza.foto}"/>
-        
-   
-</c:forEach>

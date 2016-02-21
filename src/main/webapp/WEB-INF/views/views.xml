@@ -13,8 +13,6 @@
                        value="/WEB-INF/views/basket.jsp" />
         <put-attribute name="grid_6-18"
                        value="/WEB-INF/views/grid_6-18.jsp" />
-        <put-attribute name="content" value="" />
-       
     </definition>
 
     <definition name="header+grid_8-8-8" template="/WEB-INF/views/grid_6-18.jsp">
@@ -23,11 +21,24 @@
         <put-attribute name="grid_8-8-8"
                        value="/WEB-INF/views/grid_8-8-8.jsp" />
     </definition>
-    
+    <definition name="grid_8-8-8" template="/WEB-INF/views/grid_6-18.jsp">
+        <put-attribute name="grid_8-8-8"
+                       value="/WEB-INF/views/grid_8-8-8.jsp" />
+    </definition>
     <definition name="home" extends="template">  <!-- Шаблон главной страницы -->
         <put-attribute name="grid_6-18"
                        value="header+grid_8-8-8" />
-        
     </definition>
-
+    <definition name="pizza_list" extends="template" >
+        <put-attribute name="grid_6-18" value="grid_8-8-8" />
+    </definition>
+    <definition name="contacts" extends="template" >
+        <put-attribute name="grid_6-18" value="/WEB-INF/views/contacts.jsp" />
+    </definition>
+    <definition name="delivery" extends="template" template="">
+        <put-attribute name="grid_6-18" value="/WEB-INF/views/delivery.jsp" />
+    </definition>
+    <definition name="discount" extends="template" >
+        <put-attribute name="grid_6-18" value="/WEB-INF/views/discount.jsp" />
+    </definition>
 </tiles-definitions>

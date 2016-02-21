@@ -28,7 +28,7 @@ public class HomeController {
     public String showHomePage(Map<String, Object> model){
         System.out.println(pizzaServ.chooseRandomSomePizzas());
         model.put("somePizzas", pizzaServ.chooseRandomSomePizzas());
-        fillDB();
+        //fillDB();
         return "home"; //вернуть имя представления
     }
     
