@@ -11,4 +11,5 @@ public interface PizzaService {
     void addPizza(Pizza pizza);
     Pizza find(Long id);
     Set<Pizza> chooseRandomSomePizzas();
+    Set<Pizza> chooseAllAvailablePizzas();
 }

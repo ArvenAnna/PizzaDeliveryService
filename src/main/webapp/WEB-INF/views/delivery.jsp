@@ -5,4 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-доставка 150 грн
+<div class="row" style="margin-top: 50px;">
+    <div class="col-lg-6">
+
+    </div>
+    <div class="col-lg-18" style="top: 40px;">
+        доставка 150 грн
+    </div>
+</div>
