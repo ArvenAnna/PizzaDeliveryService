@@ -8,11 +8,11 @@
 <div class="row">
     <nav class="navbar navbar-default navbar-fixed-top">
         <ul class="nav navbar-nav">
-            <li><a href="/homepage">Главная страница</a></li>
-            <li><a href="/our_pizzas">Наши пиццы</a></li>
-            <li><a href="/delivery">Доставка</a></li>
-            <li><a href="/discount">Акции</a></li>
-            <li><a href="/contacts">Контакты</a></li>
+            <li><a href="homepage">Главная страница</a></li>
+            <li><a href="our_pizzas">Наши пиццы</a></li>
+            <li><a href="delivery">Доставка</a></li>
+            <li><a href="discount">Акции</a></li>
+            <li><a href="contacts">Контакты</a></li>
         </ul>
     </nav>	
 </div> 

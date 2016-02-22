@@ -49,4 +49,9 @@ public class SimplePizzaService implements PizzaService{
                 ((MAX_RANDOM_PIZZA_AMOUNT - MIN_RANDOM_PIZZA_AMOUNT) + 1));
         return pizzaRepository.findSomeRandom(limit);
     }
+
+    @Override
+    public Set<Pizza> chooseAllAvailablePizzas() {
+        return pizzaRepository.findAll();
+    }
 }

@@ -1,10 +1,9 @@
 <!DOCTYPE tiles-definitions PUBLIC
    "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
    "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
-<tiles-definitions>
+<tiles-definitions>    
     <definition name="template"
                 template="/WEB-INF/views/main_template.jsp"> <!-- Общий шаблон -->
-   
         <put-attribute name="menu"
                        value="/WEB-INF/views/menu.jsp" />
         <put-attribute name="footer"
@@ -12,8 +11,9 @@
         <put-attribute name="basket"
                        value="/WEB-INF/views/basket.jsp" />
         <put-attribute name="grid_6-18"
-                       value="/WEB-INF/views/grid_6-18.jsp" />
+                       value="" />
     </definition>
+    
 
     <definition name="header+grid_8-8-8" template="/WEB-INF/views/grid_6-18.jsp">
         <put-attribute name="header"
@@ -21,23 +21,25 @@
         <put-attribute name="grid_8-8-8"
                        value="/WEB-INF/views/grid_8-8-8.jsp" />
     </definition>
-    <definition name="grid_8-8-8" template="/WEB-INF/views/grid_6-18.jsp">
+    <definition name="grid_8-8-8_" template="/WEB-INF/views/grid_8-8-8_.jsp">
         <put-attribute name="grid_8-8-8"
                        value="/WEB-INF/views/grid_8-8-8.jsp" />
     </definition>
+    
     <definition name="home" extends="template">  <!-- Шаблон главной страницы -->
         <put-attribute name="grid_6-18"
                        value="header+grid_8-8-8" />
     </definition>
     <definition name="pizza_list" extends="template" >
-        <put-attribute name="grid_6-18" value="grid_8-8-8" />
+        <put-attribute name="grid_6-18" value="grid_8-8-8_" />
     </definition>
     <definition name="contacts" extends="template" >
         <put-attribute name="grid_6-18" value="/WEB-INF/views/contacts.jsp" />
     </definition>
-    <definition name="delivery" extends="template" template="">
+    <definition name="delivery" extends="template">
         <put-attribute name="grid_6-18" value="/WEB-INF/views/delivery.jsp" />
     </definition>
+    
     <definition name="discount" extends="template" >
         <put-attribute name="grid_6-18" value="/WEB-INF/views/discount.jsp" />
     </definition>

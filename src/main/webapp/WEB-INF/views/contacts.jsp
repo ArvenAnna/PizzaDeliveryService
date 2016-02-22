@@ -5,4 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-мы вас сами найдем
+<div class="row" style="margin-top: 50px;">
+    <div class="col-lg-6">
+
+    </div>
+    <div class="col-lg-18" style="top: 40px;">
+        мы вас сами найдем
+    </div>
+</div>
+

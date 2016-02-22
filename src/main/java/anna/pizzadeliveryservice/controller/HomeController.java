@@ -24,9 +24,8 @@ public class HomeController {
     }
 
   
-    @RequestMapping(value = {"","/home"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"","/homepage"}, method = RequestMethod.GET)
     public String showHomePage(Map<String, Object> model){
-        System.out.println(pizzaServ.chooseRandomSomePizzas());
         model.put("somePizzas", pizzaServ.chooseRandomSomePizzas());
         //fillDB();
         return "home"; //вернуть имя представления
