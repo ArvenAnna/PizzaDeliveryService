@@ -12,6 +12,8 @@
     <head>
         <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="resources/js/jquery.js"></script>
+        <script src="resources/js/ajaxAddToCart.js"></script> 
         <title>gggggggggggggggg</title>
     </head>
     <body>

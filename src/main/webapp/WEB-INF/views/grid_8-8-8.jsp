@@ -21,7 +21,9 @@
                 <div style="text-align: center;">
                     <span>Cтоимость: <b><c:out value="${pizza.price}" /></b></span>
                 </div>
-                <button class="btn btn-success" style="margin-left: 115px;">Заказать</button>
+                <div class="text-center">
+                    <button id="addbutton" class="btn btn-success" style="" value="${pizza.id}">Добавить в корзину</button>
+                </div>
             </div>
             <%-- <img src=
                   "<s:url value="/resources"/>/foto.JPG"/> --%>
