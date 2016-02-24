@@ -10,19 +10,25 @@
     <div class="col-lg-8">
         <c:forEach var="pizza" items="${somePizzas}"> <!-- Цикл по списку сообщений -->
             <div style="width: 300px; background-color: yellow; margin: 5%;">
-                <a href="">
+                <div id="">
+                    <a href="">
+                        <div style="text-align: center;">
+                            <span><b><c:out value="${pizza.name}"/></b></span></br>
+                            <span><c:out value="${pizza.pizzaType}"/></span>
+                        </div>
+                        <img src="<s:url value="/resources"/>/foto/<c:out value="${pizza.foto}"/>" class="img-rounded"/>
+                    </a>
+                    <span><c:out value="${pizza.description}" /></span></br>
                     <div style="text-align: center;">
-                        <span><b><c:out value="${pizza.name}"/></b></span></br>
-                        <span><c:out value="${pizza.pizzaType}"/></span>
+                        <span>Cтоимость: <b><c:out value="${pizza.price}" /></b> грн.</span>
                     </div>
-                    <img src="<s:url value="/resources"/>/foto/<c:out value="${pizza.foto}"/>" class="img-rounded"/>
-                </a>
-                <span><c:out value="${pizza.description}" /></span></br>
-                <div style="text-align: center;">
-                    <span>Cтоимость: <b><c:out value="${pizza.price}" /></b></span>
-                </div>
-                <div class="text-center">
-                    <button id="addbutton" class="btn btn-success" style="" value="${pizza.id}">Добавить в корзину</button>
+
+                    <button id="" name="${pizza.id}" class="addPizza btn btn-success" style="" value="${pizza.id}">Добавить в корзину</button>
+                    <ul id="${pizza.id}" style="visibility: hidden; display: none;">
+                        <li class="${pizza.id}">${pizza.name}</li>
+                        <li class="${pizza.id}">${pizza.foto}</li>
+                        <li class="${pizza.id}">${pizza.price}</li>
+                    </ul>
                 </div>
             </div>
             <%-- <img src=
