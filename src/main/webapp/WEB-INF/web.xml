@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    
     <!-- Add Support for Spring -->
     <!-- Создает Spring Container, доступный всем сервлетам и фильтрам -->
     <context-param>
@@ -8,6 +7,7 @@
         <param-value>
             /WEB-INF/applicationContext.xml
             /WEB-INF/repositoryContext.xml
+            classpath:ratesConfig.xml
        <!-- /WEB-INF/spitter-security.xml
         spath:service-context.xml
         classpath:persistence-context.xml
@@ -17,20 +17,25 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    
     <servlet>
         <servlet-name>pizzadelivery</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/webContext.xml</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>pizzadelivery</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/app/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-            
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

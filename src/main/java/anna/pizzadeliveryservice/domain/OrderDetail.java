@@ -39,8 +39,8 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(Pizza pizza) {
-        this.price = pizza.price;
+    public OrderDetail(Integer price, Pizza pizza) {
+        this.price = price;
         this.pizza = pizza;
     }
 

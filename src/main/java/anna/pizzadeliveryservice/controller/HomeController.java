@@ -23,6 +23,12 @@ public class HomeController {
         this.pizzaServ = pizzaServ;
     }
 
+//    @RequestMapping(value = "/homepage", method = RequestMethod.GET)
+//    public String showHomePage(Map<String, Object> model){
+//        model.put("somePizzas", pizzaServ.chooseRandomSomePizzas());
+//        //fillDB();
+//        return "home"; //вернуть имя представления
+//    }
   
     @RequestMapping(value = {"","/homepage"}, method = RequestMethod.GET)
     public String showHomePage(Map<String, Object> model){
@@ -34,15 +40,15 @@ public class HomeController {
     private void fillDB(){
         System.out.println("filldb" + pizzaServ);
         Pizza p = new Pizza();
-        p.setName("Pizza gavno");
-        p.setDescription("gavno");
+        p.setName("Pizza ddddd");
+        p.setDescription("ddddd");
         p.setFoto("/foto/bla");
         p.setPrice(34);
         p.setPizzaType(Pizza.PizzaType.Meat);
         pizzaServ.addPizza(p);
         p = new Pizza();
-        p.setName("Pizza sran");
-        p.setDescription("sran");
+        p.setName("Pizza sssss");
+        p.setDescription("sssss");
         p.setFoto("/foto/ffff");
         p.setPrice(45);
         p.setPizzaType(Pizza.PizzaType.Sea);

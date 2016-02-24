@@ -5,28 +5,33 @@
  */
 $(document).ready(function () {
 
-    $(".addPizza").on('click', function (event) {
+    $("#addbutton").on('click', function (event) {
         var button = $(event.target);
         var buttonValue = button.val();
         var obj = {id: buttonValue};
         var pobj = JSON.stringify(obj);
         //alert(buttonValue);
-  
+
         var elements = document.getElementsByClassName(buttonValue);
         var cartElements = document.getElementsByClassName("cart");
         cartElements[0].innerHTML = elements[0].innerHTML;
         cartElements[1].innerHTML = elements[2].innerHTML;
 
         $.ajax({
-            type: "POST",
-            url: "addpizza",
+            type: "GET",
+            url: "addpizza/" + buttonValue + "",
             contentType: "application/json",
             data: pobj,
             success: function (data) {
-                //alert(data);
-                //alert(data.toString)
-                //var f = JSON.parse(data);
-                //alert(f[0]);
+                alert(data);
+                //var j = JSON.parse(data);
+                alert(data['cost']);
+                alert(data['rateCost']);
+                alert(data['exception']);
+                //alert(data['name']);
+//                    var f = JSON.stringify(data);
+//                    alert(JSON.stringify(data));
+//                    alert(JSON.parse(data));
 
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -35,9 +40,8 @@ $(document).ready(function () {
             },
             complete: function (data) {
             }
-
         });
-        return false;
+
     });
 });
 

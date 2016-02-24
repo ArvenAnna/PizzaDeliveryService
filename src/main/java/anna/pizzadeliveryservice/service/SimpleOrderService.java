@@ -4,6 +4,7 @@ import anna.pizzadeliveryservice.domain.Customer;
 import anna.pizzadeliveryservice.domain.Order;
 import anna.pizzadeliveryservice.domain.OrderDetail;
 import anna.pizzadeliveryservice.domain.Pizza;
+import anna.pizzadeliveryservice.domain.rate.Rate;
 import anna.pizzadeliveryservice.exception.NoSuchEntityException;
 import anna.pizzadeliveryservice.repository.OrderRepository;
 import java.util.ArrayList;
@@ -24,12 +25,15 @@ public class SimpleOrderService implements OrderService{
     private OrderRepository orderRepository;
     private PizzaService pizzaService;
     private CustomerService customerService;
+    private List<Rate> rates;
 
     @Autowired
-    public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService, CustomerService customerService) {
+    public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService, 
+            CustomerService customerService, List<Rate> rates) {
         this.orderRepository = orderRepository;
         this.pizzaService = pizzaService;
         this.customerService = customerService;
+        this.rates = rates;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class SimpleOrderService implements OrderService{
         List<OrderDetail> details = new ArrayList<>();
         
         for (Long id : pizzaID) {
-            details.add(new OrderDetail(getPizzaById(id)));
+            details.add(new OrderDetail(getPizzaById(id).getPrice(),getPizzaById(id)));
         }
 
         Order newOrder = new Order();
@@ -88,6 +92,11 @@ public class SimpleOrderService implements OrderService{
 
     private Pizza getPizzaById(Long id) {
         return pizzaService.find(id);
+    }
+
+    @Override
+    public void setRates(Order order) {
+        order.setRates(rates);
     }
 
 }

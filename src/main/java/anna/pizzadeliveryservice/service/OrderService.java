@@ -16,4 +16,6 @@ public interface OrderService {
     Order addPizzasToOrder(Order order, Long... pizzaID);
     
     void payForOrder(Order order);
+    
+    void setRates(Order order);
 }

@@ -12,5 +12,5 @@ public interface Rate {
      * @param order - order object for which rate will be calculated
      * @return sum of the rate or 0 if rate can't be applied
      */
-    Integer addRate(Order order); 
+    Integer giveRate(Order order); 
 }
