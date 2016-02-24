@@ -14,10 +14,17 @@ public class CardRate implements Rate{
 
     private final int RATE_PERCENT = 10;
     private final int MAX_ORDER_PERCENT_FOR_RATE = 30;
+
+    public CardRate() {
+    }
+    
     
     @Override
-    public Integer addRate(Order order){
+    public Integer giveRate(Order order){
         int cardRate = 0;
+        if(order.getCustomer()==null || order.getCustomer().getCard()==null){
+            return 0;
+        }
         Integer cardSum = order.getCustomer().getCard().getSum();
         if (cardSum != null) {
             cardRate = cardSum * RATE_PERCENT / 100;

@@ -5,6 +5,37 @@
  */
 $(document).ready(function () {
      
+//        $("#addbutton").on('click', function (event) {
+//            var button = $(event.target);
+//            var buttonValue = button.val();
+//            var obj = {id: buttonValue};
+//            var pobj = JSON.stringify(obj);
+//            alert(pobj);
+//            alert('fdthtd');
+// 
+//            $.ajax({
+//                type: "POST",
+//                url: "addpizza",
+//                contentType: "application/json",
+//                data: pobj,
+//                success: function (data) {
+//                    alert(data);
+////                    var f = JSON.stringify(data);
+////                    alert(JSON.stringify(data));
+////                    alert(JSON.parse(data));
+//                    
+//                },
+//                error: function (xhr, ajaxOptions, thrownError) {
+//                    alert(xhr.status);
+//                            alert(thrownError);
+//                },
+//                complete: function (data) {
+//                }
+//
+//            });
+//            return false;
+//        });
+
         $("#addbutton").on('click', function (event) {
             var button = $(event.target);
             var buttonValue = button.val();
@@ -14,15 +45,20 @@ $(document).ready(function () {
             alert('fdthtd');
  
             $.ajax({
-                type: "POST",
-                url: "addpizza",
+                type: "GET",
+                url: "addpizza/"+buttonValue+"",
                 contentType: "application/json",
                 data: pobj,
                 success: function (data) {
                     alert(data);
-                    var f = JSON.parse(data);
-                    
-                    alert(f.id);
+                    //var j = JSON.parse(data);
+                    alert(data['cost']);
+                    alert(data['rateCost']);
+                    alert(data['exception']);
+                    //alert(data['name']);
+//                    var f = JSON.stringify(data);
+//                    alert(JSON.stringify(data));
+//                    alert(JSON.parse(data));
                     
                 },
                 error: function (xhr, ajaxOptions, thrownError) {

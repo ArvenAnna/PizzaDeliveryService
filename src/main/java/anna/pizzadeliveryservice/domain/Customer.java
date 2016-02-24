@@ -39,8 +39,14 @@ public class Customer {
     @OneToOne
     @JoinColumn(name = "card_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_CARD", 
             foreignKeyDefinition = "FOREIGN KEY (card_id) " +
-            "REFERENCES public.card (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION"))
+            "REFERENCES public.card (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
     Card card;
+    
+    @OneToOne
+    @JoinColumn(name = "account_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_ACCOUNT", 
+            foreignKeyDefinition = "FOREIGN KEY (account_id) " +
+            "REFERENCES public.account (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
+    Account account;
     
     public Customer() {
     }

@@ -1,6 +1,5 @@
 package anna.pizzadeliveryservice.domain.rate;
 
-//import anna.deliveryservice.annotation.MyComponent;
 import anna.pizzadeliveryservice.domain.Order;
 import anna.pizzadeliveryservice.domain.OrderDetail;
 import org.springframework.stereotype.Component;
@@ -17,8 +16,11 @@ public class MostExpensivePizzaRate implements Rate{
     private final int MIN_PIZZAS_COUNT = 4;
     private final int RATE_PERCENT = 30;
 
+    public MostExpensivePizzaRate() {
+    }
+
     @Override
-    public Integer addRate(Order order) {
+    public Integer giveRate(Order order) {
        int max = 0;
         if (order.getDetails().size() > MIN_PIZZAS_COUNT) {
             for (OrderDetail det : order.getDetails()) {

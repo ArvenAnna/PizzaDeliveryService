@@ -26,42 +26,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Anna
- * Entity represents order of customer
+ * @author Anna Entity represents order of customer
  */
-@Component
 @Entity
 @Table(name = "pizzaOrder")
 public class Order {
 
-    @Id 
+    @Id
     @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "sequenceGenerator", sequenceName = "order_ids")
-    @Column(name = "id", nullable = false) 
+    @Column(name = "id", nullable = false)
     Long id;
-    
+
     @OneToMany()
     @JoinColumn(name = "order_id")
     List<OrderDetail> details = new ArrayList<>();
-    
+
     @ManyToOne
-    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_ORDER_TO_CUSTOMER", 
+    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_ORDER_TO_CUSTOMER",
             foreignKeyDefinition = "FOREIGN KEY (customer_id) "
-                    + "REFERENCES public.customer (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
+            + "REFERENCES public.customer (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
     Customer customer;
-    
-    @Column(name = "status")         
+
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     Status status;
-    
-    @Temporal(value=TemporalType.DATE)
+
+    @Temporal(value = TemporalType.DATE)
     @Column(name = "date")
     Date date;
-    
+
     @Transient
     private final int MAX_PIZZAS_IN_ORDER = 10;
-    
-    @Autowired
+
     @Transient
     private List<Rate> rates;
 
@@ -76,12 +73,17 @@ public class Order {
         checkForTooManyPizzasException((details.size()));
         this.details = details;
     }
-    
-    public void addMorePizzas(List<Pizza> morePizzas){
-        checkForTooManyPizzasException((details.size()+ morePizzas.size()));
-        for(Pizza p:morePizzas){
-            details.add(new OrderDetail(p));
+
+    public void addMorePizzas(List<Pizza> morePizzas) {
+        checkForTooManyPizzasException((details.size() + morePizzas.size()));
+        for (Pizza p : morePizzas) {
+            details.add(new OrderDetail(p.price, p));
         }
+    }
+    
+    public void addPizza(Pizza pizza) {
+        checkForTooManyPizzasException(details.size() + 1);
+            details.add(new OrderDetail(pizza.price, pizza));
     }
 
     public Integer getPureCost() {
@@ -91,12 +93,12 @@ public class Order {
         }
         return sum;
     }
-    
+
     public Integer getRateCost() {
         Integer cost = getPureCost();
-        if(rates != null){
-            for(Rate rate:rates){
-                cost = cost - rate.addRate(this);
+        if (rates != null) {
+            for (Rate rate : rates) {
+                cost = cost - rate.giveRate(this);
             }
         }
         return cost;
@@ -113,6 +115,7 @@ public class Order {
         }
     }
 
+    
     public Long getId() {
         return id;
     }
@@ -122,7 +125,7 @@ public class Order {
     }
 
     public void setRates(List<Rate> rates) {
-        this.rates = rates;     
+        this.rates = rates;
     }
 
     public void setId(Long id) {
@@ -200,13 +203,13 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "id=" + id + ", details=" + details + ", customer=" + 
-                customer + ", status=" + status + ", date=" + date + ", rates=" + 
-                rates + '}';
+        return "Order{" + "id=" + id + ", details=" + details + ", customer="
+                + customer + ", status=" + status + ", date=" + date + ", rates="
+                + rates + '}';
     }
-    
+
     public enum Status {
         NEW, IN_PROGRSS, CANCELED, DONE
     }
-   
+
 }
