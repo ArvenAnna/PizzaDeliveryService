@@ -15,6 +15,8 @@ public class MostExpensivePizzaRate implements Rate{
     
     private final int MIN_PIZZAS_COUNT = 4;
     private final int RATE_PERCENT = 30;
+    
+    private String name = "most expensive pizza rate";
 
     public MostExpensivePizzaRate() {
     }
@@ -31,4 +33,10 @@ public class MostExpensivePizzaRate implements Rate{
         }
         return (max * RATE_PERCENT / 100);
     }
+
+    public String getName() {
+        return name;
+    }
+    
+    
 }

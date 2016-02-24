@@ -40,9 +40,9 @@ public class HomeController {
     private void fillDB(){
         System.out.println("filldb" + pizzaServ);
         Pizza p = new Pizza();
-        p.setName("Pizza ddddd");
-        p.setDescription("ddddd");
-        p.setFoto("/foto/bla");
+        p.setName("Margarita");
+        p.setDescription("Очень вкусная пицца");
+        p.setFoto("margarita.png");
         p.setPrice(34);
         p.setPizzaType(Pizza.PizzaType.Meat);
         pizzaServ.addPizza(p);

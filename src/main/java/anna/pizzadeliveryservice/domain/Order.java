@@ -85,6 +85,15 @@ public class Order {
         checkForTooManyPizzasException(details.size() + 1);
             details.add(new OrderDetail(pizza.price, pizza));
     }
+    
+    public void removePizza(Long id) {
+        for (OrderDetail det : details) {
+            if(det.pizza.id.equals(id)){
+                details.remove(det);
+                return;
+            }
+        }
+    }
 
     public Integer getPureCost() {
         Integer sum = 0;

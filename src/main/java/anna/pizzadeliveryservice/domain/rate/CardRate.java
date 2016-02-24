@@ -14,6 +14,7 @@ public class CardRate implements Rate{
 
     private final int RATE_PERCENT = 10;
     private final int MAX_ORDER_PERCENT_FOR_RATE = 30;
+    private String name = "card rate";
 
     public CardRate() {
     }
@@ -34,4 +35,9 @@ public class CardRate implements Rate{
         }
         return cardRate;
     }
+
+    public String getName() {
+        return name;
+    }
+     
 }

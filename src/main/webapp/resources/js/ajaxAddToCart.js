@@ -4,18 +4,12 @@
  * and open the template in the editor.
  */
 $(document).ready(function () {
-
-    $("#addbutton").on('click', function (event) {
+    //$("#links").load("/Main_Page #jq-p-Getting-Started li");
+    $(".addPizza").on('click', function (event) {
         var button = $(event.target);
         var buttonValue = button.val();
         var obj = {id: buttonValue};
         var pobj = JSON.stringify(obj);
-        //alert(buttonValue);
-
-        var elements = document.getElementsByClassName(buttonValue);
-        var cartElements = document.getElementsByClassName("cart");
-        cartElements[0].innerHTML = elements[0].innerHTML;
-        cartElements[1].innerHTML = elements[2].innerHTML;
 
         $.ajax({
             type: "GET",
@@ -23,11 +17,10 @@ $(document).ready(function () {
             contentType: "application/json",
             data: pobj,
             success: function (data) {
+                alert("jopa");
                 alert(data);
+                alert(JSON.stringify(data));
                 //var j = JSON.parse(data);
-                alert(data['cost']);
-                alert(data['rateCost']);
-                alert(data['exception']);
                 //alert(data['name']);
 //                    var f = JSON.stringify(data);
 //                    alert(JSON.stringify(data));
@@ -41,6 +34,10 @@ $(document).ready(function () {
             complete: function (data) {
             }
         });
+        var elements = document.getElementsByClassName(buttonValue);
+        var cartElements = document.getElementsByClassName("cart");
+        cartElements[0].innerHTML = elements[0].innerHTML;
+        cartElements[1].innerHTML = elements[2].innerHTML;
 
     });
 });
