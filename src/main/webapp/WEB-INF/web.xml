@@ -13,7 +13,12 @@
         classpath:persistence-context.xml
         classpath:dataSource-context.xml-->
         </param-value>
+        
     </context-param>
+    <!--<context-param>
+        <param-name>spring.profile.active</param-name>
+        <param-value>prod</param-value>       
+    </context-param>-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

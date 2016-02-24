@@ -73,13 +73,6 @@ public class Order {
         checkForTooManyPizzasException((details.size()));
         this.details = details;
     }
-
-    public void addMorePizzas(List<Pizza> morePizzas) {
-        checkForTooManyPizzasException((details.size() + morePizzas.size()));
-        for (Pizza p : morePizzas) {
-            details.add(new OrderDetail(p.price, p));
-        }
-    }
     
     public void addPizza(Pizza pizza) {
         checkForTooManyPizzasException(details.size() + 1);

@@ -6,8 +6,6 @@ import anna.pizzadeliveryservice.domain.Pizza;
 import anna.pizzadeliveryservice.exception.TooManyPizzasException;
 import anna.pizzadeliveryservice.service.OrderService;
 import anna.pizzadeliveryservice.service.PizzaService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -70,36 +68,11 @@ public class OrderController {
 //        });
 //        return map;
 //    }
-//    @RequestMapping(value = "/addpizza/{id}", method = RequestMethod.GET,
-//            headers = "Accept=application/json")
-//    @ResponseBody
-//    public Map<String, Object> addPizzaToOrder(@PathVariable String id, HttpSession session) {
-//        System.out.println("jjjjjjjjjjjjjjjjjjjjjjjj");
-//        Map<String, Object> json = new HashMap<>();
-//        Order order;
-//        if (session.getAttribute("order") != null) {
-//            order = (Order) session.getAttribute("order");
-//        } else {
-//            order = new Order();
-//            orderServ.setRates(order);
-//        }
-//        try {
-//            order.addPizza(pizzaServ.find(Long.parseLong(id)));
-//            session.setAttribute("order", order);
-//            json.put("cost", order.getPureCost().toString());
-//            json.put("rateCost", order.getRateCost().toString());
-//        } catch (TooManyPizzasException e) {
-//            json.put("exception", "TooManyPizzaException");
-//        }
-//        System.out.println(json);
-//        System.out.println((Order) session.getAttribute("order"));
-//        return json;
-//    }
+
     @RequestMapping(value = "/addpizza/{id}", method = RequestMethod.GET,
             headers = "Accept=application/json")
     @ResponseBody
     public Map<String, Object> addPizzaToOrder(@PathVariable String id, HttpSession session) {
-
         Map<String, Object> json = new HashMap<>();
         Order order;
         if (session.getAttribute("order") != null) {
@@ -109,12 +82,14 @@ public class OrderController {
             orderServ.setRates(order);
         }
         try {
-            order.addPizza(pizzaServ.find(Long.parseLong(id)));
+            orderServ.addPizzasToOrder(order, Long.parseLong(id));
             session.setAttribute("order", order);
-            json.put("order", order);
+            
         } catch (TooManyPizzasException e) {
             json.put("exception", "TooManyPizzaException");
         }
+        json.put("order", order);
+        json.put("session_id", session.getId());
         System.out.println(json);
         return json;
     }
@@ -128,16 +103,16 @@ public class OrderController {
         if (session.getAttribute("order") != null) {
             order = (Order) session.getAttribute("order");
         } else {
-            order = new Order();
+            json.put("exception", "DeletingWithoutCreatingOrder");
+            return json;
         }
         if (order.getDetails().isEmpty()) {
             json.put("exception", "DeletingEmptyList");
         } else {
-            order.removePizza(Long.parseLong(id));
-            session.setAttribute("order", order);
-            json.put("cost", order.getPureCost().toString());
-            json.put("rateCost", order.getRateCost().toString());
+            orderServ.removePizzaFromOrder(order, Long.parseLong(id));
         }
+        json.put("order", order);
+        json.put("session_id", session.getId());
         return json;
     }
 
@@ -145,6 +120,27 @@ public class OrderController {
     public void showHomePage(HttpSession session) {
         session.invalidate();
     }
+    
+    @RequestMapping(value = "/accept_order", method = RequestMethod.GET)
+    public String acceptOrder(Map<String, Object> model, HttpSession session) {
+//        Map<String, Object> json = new HashMap<>();
+        Order order;
+        if (session.getAttribute("order") != null) {
+            order = (Order) session.getAttribute("order");
+            if(order.getCustomer()==null){
+                return "redirect:/registration/";
+            }else{
+                model.put("accepted", true);
+                model.put("order", orderServ.placeNewOrder(order));
+            }
+        } else {
+            model.put("error", "Empty order saving");
+            return "error_massage";
+            
+        }
+        return "order_accepted";
+    }
+
 
     //public ResponseEntity<String> method(HttpEntity<String> entity) {…}
 //    @RequestMapping(method = RequestMethod.POST, value = "/emp")

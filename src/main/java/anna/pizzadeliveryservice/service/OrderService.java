@@ -9,11 +9,13 @@ import anna.pizzadeliveryservice.domain.Order;
  */
 public interface OrderService {
 
-    Order placeNewOrder(Customer customer, Long... pizzaID);
+    Order placeNewOrder(Order order);
 
     Order saveOrder(Order order);
     
     Order addPizzasToOrder(Order order, Long... pizzaID);
+    
+    Order removePizzaFromOrder(Order order, Long pizzaID);
     
     void payForOrder(Order order);
     

@@ -8,6 +8,7 @@ import anna.pizzadeliveryservice.domain.rate.Rate;
 import anna.pizzadeliveryservice.exception.NoSuchEntityException;
 import anna.pizzadeliveryservice.repository.OrderRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SimpleOrderService implements OrderService{
-
-    private static Long orderCount = 0L;
 
     private OrderRepository orderRepository;
     private PizzaService pizzaService;
@@ -37,28 +36,15 @@ public class SimpleOrderService implements OrderService{
     }
 
     @Override
-    public Order placeNewOrder(Customer customer, Long... pizzaID) {
-        orderCount++;
-
-        List<OrderDetail> details = new ArrayList<>();
-        
-        for (Long id : pizzaID) {
-            details.add(new OrderDetail(getPizzaById(id).getPrice(),getPizzaById(id)));
-        }
-
-        Order newOrder = new Order();
-        newOrder.setCustomer(customer);
-        newOrder.setDetails(details);
-        newOrder.setId(orderCount);
-        newOrder.setStatus(Order.Status.NEW);
-        
-        saveOrder(newOrder);
-        return newOrder;
+    public Order placeNewOrder(Order order) {
+        order.setStatus(Order.Status.NEW);
+        order.setDate(new Date());
+        return saveOrder(order);
     }
     
     @Override
     public Order saveOrder(Order order) {
-        return orderRepository.save(order);
+        return orderRepository.addNew(order);
     }
 
     @Override
@@ -66,18 +52,9 @@ public class SimpleOrderService implements OrderService{
         if (order == null) {
             throw new NoSuchEntityException(Order.class);
         }
-
-        List<Pizza> pizzas = new ArrayList<Pizza>();
-        int i =0;
-        for (Long id : pizzaID) {
-            
-            pizzas.add(getPizzaById(id));
-            System.out.println(pizzas.get(i));
-            i++;
+        for (Long id : pizzaID) {      
+            order.addPizza(getPizzaById(id));
         }
-        
-        order.addMorePizzas(pizzas);
-        order.setStatus(Order.Status.IN_PROGRSS);
         return orderRepository.update(order);
     }
     
@@ -97,6 +74,12 @@ public class SimpleOrderService implements OrderService{
     @Override
     public void setRates(Order order) {
         order.setRates(rates);
+    }
+
+    @Override
+    public Order removePizzaFromOrder(Order order, Long pizzaID) {
+       order.removePizza(pizzaID);
+       return order;
     }
 
 }
