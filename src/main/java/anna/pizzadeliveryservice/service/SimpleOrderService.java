@@ -55,7 +55,7 @@ public class SimpleOrderService implements OrderService{
         for (Long id : pizzaID) {      
             order.addPizza(getPizzaById(id));
         }
-        return orderRepository.update(order);
+        return order;
     }
     
     @Override

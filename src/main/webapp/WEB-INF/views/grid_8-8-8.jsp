@@ -25,7 +25,7 @@
                             <span>Cтоимость: <b><c:out value="${pizza.price}" /></b> грн.</span>
                         </div>
 
-                        <button id="" name="${pizza.id}" class="addPizza btn btn-success" style="" value="${pizza.id}">Добавить в корзину</button>
+                        <button id="order" name="${pizza.id}" class="addPizza btn btn-success" style="" value="${pizza.id}">Добавить в корзину</button>
                         <ul id="${pizza.id}" style="visibility: hidden; display: none;">
                             <li class="${pizza.id}">${pizza.name}</li>
                             <li class="${pizza.id}">${pizza.foto}</li>
@@ -40,7 +40,13 @@
         </div>
     
     <div class="col-lg-8">
-        <div>pizza1</div>
+        <div id="pizza1">
+            pizza1
+            <form action="removeSession" method="POST">
+                <button type="submit">очистить</button>
+                    
+            </form>
+        </div>
     </div>
     <div class="col-lg-8">
         <div>pizza1</div>

@@ -69,7 +69,7 @@ public class OrderController {
 //        return map;
 //    }
 
-    @RequestMapping(value = "/addpizza/{id}", method = RequestMethod.GET,
+    @RequestMapping(value = "/addpizza/{id}", method = RequestMethod.POST,
             headers = "Accept=application/json")
     @ResponseBody
     public Map<String, Object> addPizzaToOrder(@PathVariable String id, HttpSession session) {
@@ -94,7 +94,7 @@ public class OrderController {
         return json;
     }
 
-    @RequestMapping(value = "/delpizza/{id}", method = RequestMethod.GET,
+    @RequestMapping(value = "/delpizza/{id}", method = RequestMethod.POST,
             headers = "Accept=application/json")
     @ResponseBody
     public Map<String, Object> delPizzaFromOrder(@PathVariable String id, HttpSession session) {
@@ -116,12 +116,13 @@ public class OrderController {
         return json;
     }
 
-    @RequestMapping(value = "/removeSession", method = RequestMethod.GET)
-    public void showHomePage(HttpSession session) {
+    @RequestMapping(value = "/removeSession", method = RequestMethod.POST)
+    public String sesionInvalidate(HttpSession session) {
         session.invalidate();
+        return "home";
     }
     
-    @RequestMapping(value = "/accept_order", method = RequestMethod.GET)
+    @RequestMapping(value = "/accept_order", method = RequestMethod.POST)
     public String acceptOrder(Map<String, Object> model, HttpSession session) {
 //        Map<String, Object> json = new HashMap<>();
         Order order;
