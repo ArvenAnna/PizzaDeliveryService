@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,38 +19,37 @@ import javax.persistence.Table;
  *
  * @author Anna
  */
-@Entity 
+@Entity
 @Table(name = "account")
 public class Account {
-    
+
     @Id
     @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "sequenceGenerator", sequenceName = "account_ids")
-    @Column(name = "id", nullable = false) 
+    @Column(name = "id", nullable = false)
     Long id;
-    
+
     @Column(name = "username")
     String username;
-    
+
     @Column(name = "password")
     String password;
-    
+
     @Column(name = "availability")
     Boolean availability;
-    
 
-    @ManyToMany
-        @JoinTable(name = "userRole_account",
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "userRole_account",
             joinColumns
             = {
-                @JoinColumn(name = "userRole_id", foreignKey = @ForeignKey(name = "FK_USERROLE_TO_ACCOUNT_MANY", 
-            foreignKeyDefinition = "FOREIGN KEY (userRole_id) REFERENCES public.account (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))},
+                @JoinColumn(name = "account_id", foreignKey = @ForeignKey(name = "FK_ACCOUNT_TO_USERROLE_MANY",
+                        foreignKeyDefinition = "FOREIGN KEY (account_id) REFERENCES public.account (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))},
             inverseJoinColumns
             = {
-                @JoinColumn(name = "account_id", foreignKey = @ForeignKey(name = "FK_ACCOUNT_TO_USERROLE_MANY", 
-            foreignKeyDefinition = "FOREIGN KEY (account_id) REFERENCES public.userRole (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))}) 
+                @JoinColumn(name = "userRole_id", foreignKey = @ForeignKey(name = "FK_USERROLE_TO_ACCOUNT_MANY", 
+            foreignKeyDefinition = "FOREIGN KEY (userRole_id) REFERENCES public.userRole (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))})   
     Set<UserRole> roles;
-    
+
     public Account() {
     }
 
@@ -121,6 +121,5 @@ public class Account {
         }
         return true;
     }
-    
-    
+
 }

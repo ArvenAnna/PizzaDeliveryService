@@ -2,6 +2,7 @@ package anna.pizzadeliveryservice.domain;
 
 import anna.pizzadeliveryservice.domain.rate.Rate;
 import anna.pizzadeliveryservice.exception.TooManyPizzasException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,6 +60,7 @@ public class Order {
     @Transient
     private final int MAX_PIZZAS_IN_ORDER = 10;
 
+    @JsonIgnore
     @Transient
     private List<Rate> rates;
 

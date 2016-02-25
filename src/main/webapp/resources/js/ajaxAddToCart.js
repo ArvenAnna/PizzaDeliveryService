@@ -11,15 +11,24 @@ $(document).ready(function () {
         var obj = {id: buttonValue};
         var pobj = JSON.stringify(obj);
 
+        var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var headers = {};
+	headers[csrfHeader] = csrfToken;
+
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "addpizza/" + buttonValue + "",
+            headers: headers,
             contentType: "application/json",
             data: pobj,
             success: function (data) {
-                alert("jopa");
-                alert(data);
+                alert(data["session_id"]);
                 alert(JSON.stringify(data));
+                $("#basket").load("resources/new.html #ss", "html");
+                alert('gg');
+                $("span").html(data["session_id"]);
                 //var j = JSON.parse(data);
                 //alert(data['name']);
 //                    var f = JSON.stringify(data);
@@ -34,10 +43,10 @@ $(document).ready(function () {
             complete: function (data) {
             }
         });
-        var elements = document.getElementsByClassName(buttonValue);
-        var cartElements = document.getElementsByClassName("cart");
-        cartElements[0].innerHTML = elements[0].innerHTML;
-        cartElements[1].innerHTML = elements[2].innerHTML;
+//        var elements = document.getElementsByClassName(buttonValue);
+//        var cartElements = document.getElementsByClassName("cart");
+//        cartElements[0].innerHTML = elements[0].innerHTML;
+//        cartElements[1].innerHTML = elements[2].innerHTML;
 
     });
 });

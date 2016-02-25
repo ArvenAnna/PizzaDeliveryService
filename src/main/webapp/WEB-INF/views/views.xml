@@ -43,4 +43,7 @@
     <definition name="discount" extends="template" >
         <put-attribute name="grid_6-18" value="/WEB-INF/views/discount.jsp" />
     </definition>
+    
+    <definition name="login" template="/WEB-INF/views/login.jsp" >
+    </definition>
 </tiles-definitions>

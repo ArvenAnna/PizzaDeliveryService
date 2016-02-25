@@ -1,15 +1,20 @@
 package anna.pizzadeliveryservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -22,6 +27,11 @@ import javax.persistence.Table;
 
 @Entity 
 @Table(name = "customer")
+@NamedQueries({
+    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
+    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
+    @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name"),
+    @NamedQuery(name = "Customer.findByLogin", query = "SELECT c FROM Customer c, Account a WHERE a.username = :login")})
 public class Customer {
     
     @Id 
@@ -33,16 +43,17 @@ public class Customer {
     @Column(name = "name")
     String name;
     
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     Set<Address> address = new HashSet<>();
     
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "card_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_CARD", 
             foreignKeyDefinition = "FOREIGN KEY (card_id) " +
             "REFERENCES public.card (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
     Card card;
     
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_ACCOUNT", 
             foreignKeyDefinition = "FOREIGN KEY (account_id) " +
             "REFERENCES public.account (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))

@@ -1,9 +1,11 @@
 package anna.pizzadeliveryservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 import javax.annotation.PreDestroy;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +46,8 @@ public class Address {
     @Column(name = "apartment")
     Integer apartment;
     
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_ADDRESS_TO_CUSTOMER", 
             foreignKeyDefinition = "FOREIGN KEY (customer_id) REFERENCES public.customer (id) "
                     + "MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
@@ -118,7 +121,6 @@ public class Address {
         hash = 67 * hash + Objects.hashCode(this.street);
         hash = 67 * hash + Objects.hashCode(this.house);
         hash = 67 * hash + Objects.hashCode(this.apartment);
-        hash = 67 * hash + Objects.hashCode(this.customer);
         return hash;
     }
 
@@ -147,9 +149,6 @@ public class Address {
             return false;
         }
         if (!Objects.equals(this.apartment, other.apartment)) {
-            return false;
-        }
-        if (!Objects.equals(this.customer, other.customer)) {
             return false;
         }
         return true;
