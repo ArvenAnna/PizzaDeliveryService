@@ -23,11 +23,19 @@ public class HomeController {
         this.pizzaServ = pizzaServ;
     }
   
-    @RequestMapping(value = {"","/homepage"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"","/homepage", "/signin"}, method = RequestMethod.GET)
     public String showHomePage(Map<String, Object> model){
         model.put("somePizzas", pizzaServ.chooseRandomSomePizzas());
         //fillDB();
         return "home"; //вернуть имя представления
+    }
+    
+    @RequestMapping(value = "/signin", method = RequestMethod.GET, params = "login_error")
+    public String showErrorLoginPage(Map<String, Object> model){
+        model.put("somePizzas", pizzaServ.chooseRandomSomePizzas());
+        model.put("login_error", true);
+        return "home";
+        //return "redirect:homepage"; 
     }
     
     private void fillDB(){

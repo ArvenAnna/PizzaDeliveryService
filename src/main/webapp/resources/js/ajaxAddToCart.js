@@ -24,11 +24,11 @@ $(document).ready(function () {
             contentType: "application/json",
             data: pobj,
             success: function (data) {
-                alert(data["session_id"]);
-                alert(JSON.stringify(data));
-                $("#basket").load("resources/new.html #ss", "html");
-                alert('gg');
-                $("span").html(data["session_id"]);
+                //alert(data["session_id"]);
+                //alert(JSON.stringify(data));
+                //$("#basket").load("resources/new.html #ss", "html");
+                //alert('gg');
+                //$("span").html(data["session_id"]);
                 //var j = JSON.parse(data);
                 //alert(data['name']);
 //                    var f = JSON.stringify(data);

@@ -9,4 +9,5 @@ import anna.pizzadeliveryservice.domain.Customer;
 public interface CustomerService {
     
     Customer findCustomerByLogin(String login);
+ 
 }

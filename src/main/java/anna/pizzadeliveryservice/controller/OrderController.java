@@ -1,9 +1,11 @@
 package anna.pizzadeliveryservice.controller;
 
+import anna.pizzadeliveryservice.domain.Customer;
 import anna.pizzadeliveryservice.domain.Order;
 import anna.pizzadeliveryservice.domain.OrderDetail;
 import anna.pizzadeliveryservice.domain.Pizza;
 import anna.pizzadeliveryservice.exception.TooManyPizzasException;
+import anna.pizzadeliveryservice.service.CustomerService;
 import anna.pizzadeliveryservice.service.OrderService;
 import anna.pizzadeliveryservice.service.PizzaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,6 +31,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.context.request.WebRequest;
 
@@ -39,12 +42,12 @@ import org.springframework.web.context.request.WebRequest;
 @Controller
 public class OrderController {
 
-    private PizzaService pizzaServ;
+    private CustomerService customerServ;
     private OrderService orderServ;
 
     @Autowired
-    public OrderController(PizzaService pizzaServ, OrderService orderServ) {
-        this.pizzaServ = pizzaServ;
+    public OrderController(CustomerService customerServ, OrderService orderServ) {
+        this.customerServ = customerServ;
         this.orderServ = orderServ;
     }
 
@@ -52,18 +55,7 @@ public class OrderController {
             headers = "Accept=application/json")
     @ResponseBody
     public Map<String, Object> addPizzaToOrder(@PathVariable String id, HttpSession session,
-            Principal principal) throws JsonProcessingException {
-
-        String name = "not logde";
-        if (principal != null) {
-            name = principal.getName();
-        }
-        System.out.println(name);
-        for (GrantedAuthority authority : getAuthentication().
-                getAuthorities()) {
-            System.out.println(authority.getAuthority());
-        }
-
+            Principal principal) {
         Map<String, Object> json = new HashMap<>();
         Order order;
         if (session.getAttribute("order") != null) {
@@ -77,10 +69,6 @@ public class OrderController {
                 orderServ.addCustomerToOrderByLogin(order, principal.getName());
             }
         }
-        System.out.println(order);
-        ObjectMapper m = new ObjectMapper();
-        String j = m.writeValueAsString(order);
-        System.out.println(j);
         try {
             orderServ.addPizzasToOrder(order, Long.parseLong(id));
             session.setAttribute("order", order);
@@ -97,11 +85,17 @@ public class OrderController {
     @RequestMapping(value = "/delpizza/{id}", method = RequestMethod.POST,
             headers = "Accept=application/json")
     @ResponseBody
-    public Map<String, Object> delPizzaFromOrder(@PathVariable String id, HttpSession session) {
+    public Map<String, Object> delPizzaFromOrder(@PathVariable String id, HttpSession session,
+            Principal principal) {
         Map<String, Object> json = new HashMap<>();
         Order order;
         if (session.getAttribute("order") != null) {
             order = (Order) session.getAttribute("order");
+            if (order.getCustomer() == null) {
+                if (principal != null) {
+                    orderServ.addCustomerToOrderByLogin(order, principal.getName());
+                }
+            }
         } else {
             json.put("exception", "DeletingWithoutCreatingOrder");
             return json;
@@ -110,6 +104,7 @@ public class OrderController {
             json.put("exception", "DeletingEmptyList");
         } else {
             orderServ.removePizzaFromOrder(order, Long.parseLong(id));
+            session.setAttribute("order", order);
         }
         json.put("order", order);
         json.put("session_id", session.getId());
@@ -123,41 +118,41 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/accept_order", method = RequestMethod.POST)
-    public String acceptOrder(Map<String, Object> model, HttpSession session, WebRequest request) {
-//        Map<String, Object> json = new HashMap<>();
-        Order order;
-//        String name="not logde";
-//        Principal principal = request.getUserPrincipal();
-//        if(principal!=null){
-//            name = principal.getName();
-//        }
+    public String acceptOrder(Map<String, Object> model, HttpSession session, Principal principal) {
+        String view;
         if (session.getAttribute("order") != null) {
-            order = (Order) session.getAttribute("order");
-            if (order.getCustomer() == null) {
-                return "registration";
+            Order order = (Order) session.getAttribute("order");
+            if (order.getCustomer() == null && principal == null) {
+                view = "registration";
             } else {
+                if (order.getCustomer() == null) {
+                    orderServ.addCustomerToOrderByLogin(order, principal.getName());
+                }
                 model.put("accepted", true);
                 model.put("order", orderServ.placeNewOrder(order));
+                session.removeAttribute("order");
+                view = "order_accepted";
             }
         } else {
-            model.put("error", "Empty order saving");
-            return "error_massage";
+            model.put("empty_order_saving", true);
+            view = "error_massage";
+        }
+        return view;
 
-        }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            System.out.println(auth.getPrincipal().toString());
-        }
 //        for (GrantedAuthority authority : getAuthentication().
 //                getAuthorities()) {
 //            if (authority.getAuthority().equals("ROLE_USER")) {
 //                return false;
 //            }
-//        }
-//        return true;
-//<sec:authorize access="hasRole('ROLE_USER') and fullyAuthenticated">
-//        <sec:authorize url="/account/home.do" method="GET">
-        return "order_accepted";
+    }
+
+    @RequestMapping(value = "/addcustomer", method = RequestMethod.POST)
+    public String registrateCustomer(@ModelAttribute Customer customer, Map<String, Object> model,
+            HttpSession session) {
+        Order order = (Order) session.getAttribute("order");
+        order.setCustomer(customer);
+        session.setAttribute("order", order);
+        return "redirect:accept_order";
     }
 
     protected Authentication getAuthentication() {

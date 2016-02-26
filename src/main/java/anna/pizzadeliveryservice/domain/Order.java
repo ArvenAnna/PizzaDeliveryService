@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -39,11 +40,11 @@ public class Order {
     @Column(name = "id", nullable = false)
     Long id;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_id")
     List<OrderDetail> details = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_ORDER_TO_CUSTOMER",
             foreignKeyDefinition = "FOREIGN KEY (customer_id) "
             + "REFERENCES public.customer (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
