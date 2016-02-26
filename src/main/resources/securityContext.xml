@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+
+             xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.2.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd
+">
+        
+    <!--authentication-success-handler-ref="authenticationSuccessHandler"-->
+    <!--    <http  auto-config="true"  disable-url-rewriting="false" use-expressions="true" >
+        <headers disabled="true"/>
+        <form-login login-page="/app/login"
+                    default-target-url="/app/contacts"
+                    always-use-default-target="true"
+                    login-processing-url="/app/j_spring_security_check"
+                    username-parameter="j_username" password-parameter="j_password"
+                    authentication-failure-url="/app/login?login_error"/>
+        <logout logout-url="/login" invalidate-session="true" logout-success-url="/login" />
+        <remember-me
+        key="spitterKey"
+        token-validity-seconds="2419200" />
+        <csrf/>
+    </http>-->
+
+    
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/app/contacts" access="hasRole('ROLE_ADMIN')" />	
+        <intercept-url pattern="/app/discount" access="hasRole('ROLE_CUSTOMER')" />
+        <intercept-url pattern="/app/addpizza/**" access="permitAll"  />
+        <intercept-url pattern="/app/signin" access="permitAll"  />
+                
+        <form-login login-page="/app/signin"
+                    login-processing-url="/app/login"
+                    authentication-success-handler-ref="authenticationSuccessHandler"
+                    authentication-failure-url="/app/signin?login_error"/> 
+    </http>
+    
+    <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <beans:property name="useReferer" value="true" />
+    </beans:bean>
+
+  
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource" 
+                               users-by-username-query=
+            "select username, password, availability from public.account where username=?;"
+                               authorities-by-username-query=
+            "select a.username,ur.rolename from public.account as a, public.userrole as ur, public.userrole_account as ua where  a.id = ua.account_id and ur.id = ua.userrole_id and username=?;"
+            />
+            <!--                        <user-service>
+                <user name="test" password="test" authorities="ROLE_USER"/>
+                <user name="test1" password="test1" authorities="ROLE_A"/>
+            </user-service>-->
+        </authentication-provider>
+    </authentication-manager>
+    
+    <!--<beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+        <beans:property name="defaultTargetUrl" value="/app/contacts"/>
+        <beans:property name="targetUrlParameter" value="spring-security-redirect"/>
+    </beans:bean>-->
+
+</beans:beans>

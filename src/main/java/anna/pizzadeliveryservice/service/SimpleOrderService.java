@@ -58,14 +58,6 @@ public class SimpleOrderService implements OrderService{
         return order;
     }
     
-    @Override
-    public void payForOrder(Order order){
-        order.setStatus(Order.Status.DONE);
-        orderRepository.update(order);
-        if(order.getCustomer().getCard()!=null){
-            customerService.addSumToCard(order.getCustomer(), order.getPureCost());
-        }     
-    }
 
     private Pizza getPizzaById(Long id) {
         return pizzaService.find(id);
@@ -79,6 +71,13 @@ public class SimpleOrderService implements OrderService{
     @Override
     public Order removePizzaFromOrder(Order order, Long pizzaID) {
        order.removePizza(pizzaID);
+       return order;
+    }
+
+    @Override
+    public Order addCustomerToOrderByLogin(Order order, String login) {
+       Customer customer = customerService.findCustomerByLogin(login);
+       order.setCustomer(customer);
        return order;
     }
 

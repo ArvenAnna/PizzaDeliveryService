@@ -11,36 +11,35 @@ $(document).ready(function () {
         var obj = {id: buttonValue};
         var pobj = JSON.stringify(obj);
 
+        var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var headers = {};
+	headers[csrfHeader] = csrfToken;
+
         $.ajax({
             type: "POST",
-            url: "addpizza/" + buttonValue,
+            url: "addpizza/" + buttonValue + "",
+            headers: headers,
             contentType: "application/json",
-            data: pobj,
+            //data: pobj,
             success: function (data) {
-                alert(data);
-                var orderJson = data;
-                var a = JSON.stringify(orderJson, "", 4);
-                //alert(orderJson[]);
-                //alert(data['order']['details'].length);
-                alert(a);
-                var pizzasList = data['order']['details'];
-                //alert(pizzasList);
-                var pizza = data["order"]["details"][0]["pizza"]["name"];
-                var pizzaStr = pizza.toString();
-                alert(pizzaStr);
-                $("#divbasket").load("resources/htmlTemplates/basket.html");
-                $("#order").live("click", function () {
-                    alert($("#pizza1").text());
-                    
-                });
-                var cartElements = document.getElementsByClassName("cart");
-                alert(cartElements[0]);
-                //cartElements[0].innerHTML = pizzaStr;
-                //var parseOrderJson = JSON.parse(orderJson);
+                //alert(data["session_id"]);
+                alert(JSON.stringify(data, " ", 4));
+                
+                $("#divbasket").load("resources/htmlTemplates/basket.html", "html");
+                if (data["exception"]) {
+                    $(".errorMessage").html("блблабла");
+                };
+                var firstpizza = data['order']['details'][0]['pizza']['id'];
+                alert(firstpizza);
+                
+                for (i = 0, i < data['order']['details'].lenghts, i++) {
+                    var ipizza = data['order']['details'][i]['pizza']['id'];
+                    var icount = 1;
+                };
+                //$("span").html(data["session_id"]);
 
-                //alert("jopa");
-
-                //alert(JSON.stringify(data));
                 //var j = JSON.parse(data);
                 //alert(data['name']);
 //                    var f = JSON.stringify(data);
@@ -55,10 +54,12 @@ $(document).ready(function () {
             complete: function (data) {
             }
         });
+
         var elements = document.getElementsByClassName(buttonValue);
 
         cartElements[0].innerHTML = elements[0].innerHTML;
         cartElements[1].innerHTML = elements[2].innerHTML;
+
 
     });
 });

@@ -5,11 +5,12 @@
 --%>
 
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <sec:csrfMetaTags />
         <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="resources/js/jquery.js"></script>

@@ -17,7 +17,7 @@ public interface OrderService {
     
     Order removePizzaFromOrder(Order order, Long pizzaID);
     
-    void payForOrder(Order order);
-    
     void setRates(Order order);
+    
+    Order addCustomerToOrderByLogin(Order order, String login);
 }

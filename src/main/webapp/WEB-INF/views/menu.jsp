@@ -14,5 +14,6 @@
             <li><a href="discount">Акции</a></li>
             <li><a href="contacts">Контакты</a></li>
         </ul>
+        
     </nav>	
 </div> 
