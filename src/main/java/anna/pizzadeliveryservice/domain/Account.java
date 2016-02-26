@@ -2,6 +2,7 @@ package anna.pizzadeliveryservice.domain;
 
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,7 +39,7 @@ public class Account {
     @Column(name = "availability")
     Boolean availability;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "userRole_account",
             joinColumns
             = {
@@ -75,6 +76,14 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 
     public Boolean getAvailability() {

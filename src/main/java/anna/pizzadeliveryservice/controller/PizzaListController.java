@@ -4,6 +4,7 @@ import anna.pizzadeliveryservice.service.PizzaService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,8 +24,8 @@ public class PizzaListController {
     }
     
     @RequestMapping(value = {"/our_pizzas"}, method = RequestMethod.GET)
-    public String showPizzaList(Map<String, Object> model){
-        model.put("somePizzas", pizzaServ.chooseAllAvailablePizzas());
+    public String showPizzaList(Model model){
+        model.addAttribute("somePizzas", pizzaServ.chooseAllAvailablePizzas());
         return "pizza_list";
     }
     

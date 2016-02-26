@@ -5,6 +5,7 @@ import anna.pizzadeliveryservice.service.PizzaService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,11 +24,19 @@ public class HomeController {
         this.pizzaServ = pizzaServ;
     }
   
-    @RequestMapping(value = {"","/homepage"}, method = RequestMethod.GET)
-    public String showHomePage(Map<String, Object> model){
-        model.put("somePizzas", pizzaServ.chooseRandomSomePizzas());
+    @RequestMapping(value = {"","/homepage", "/signin"}, method = RequestMethod.GET)
+    public String showHomePage(Model model){
+        model.addAttribute("somePizzas", pizzaServ.chooseRandomSomePizzas());
         //fillDB();
         return "home"; //вернуть имя представления
+    }
+    
+    @RequestMapping(value = "/signin", method = RequestMethod.GET, params = "login_error")
+    public String showErrorLoginPage(Model model){
+        model.addAttribute("somePizzas", pizzaServ.chooseRandomSomePizzas());
+        model.addAttribute("login_error", true);
+        return "home";
+        //return "redirect:homepage"; 
     }
     
     private void fillDB(){

@@ -11,24 +11,7 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security.xsd
 ">
-        
-    <!--authentication-success-handler-ref="authenticationSuccessHandler"-->
-    <!--    <http  auto-config="true"  disable-url-rewriting="false" use-expressions="true" >
-        <headers disabled="true"/>
-        <form-login login-page="/app/login"
-                    default-target-url="/app/contacts"
-                    always-use-default-target="true"
-                    login-processing-url="/app/j_spring_security_check"
-                    username-parameter="j_username" password-parameter="j_password"
-                    authentication-failure-url="/app/login?login_error"/>
-        <logout logout-url="/login" invalidate-session="true" logout-success-url="/login" />
-        <remember-me
-        key="spitterKey"
-        token-validity-seconds="2419200" />
-        <csrf/>
-    </http>-->
 
-    
     <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/app/contacts" access="hasRole('ROLE_ADMIN')" />	
         <intercept-url pattern="/app/discount" access="hasRole('ROLE_CUSTOMER')" />
@@ -39,6 +22,8 @@
                     login-processing-url="/app/login"
                     authentication-success-handler-ref="authenticationSuccessHandler"
                     authentication-failure-url="/app/signin?login_error"/> 
+        <logout logout-url="/app/logout" invalidate-session="true" logout-success-url="/app/signin" />
+        <remember-me/>
     </http>
     
     <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">

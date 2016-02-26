@@ -43,17 +43,17 @@ public class Customer {
     @Column(name = "name")
     String name;
     
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<Address> address = new HashSet<>();
     
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "card_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_CARD", 
             foreignKeyDefinition = "FOREIGN KEY (card_id) " +
             "REFERENCES public.card (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
     Card card;
     
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "account_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_ACCOUNT", 
             foreignKeyDefinition = "FOREIGN KEY (account_id) " +
             "REFERENCES public.account (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
@@ -87,6 +87,14 @@ public class Customer {
 
     public Long getId() {
         return id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public void setId(Long id) {

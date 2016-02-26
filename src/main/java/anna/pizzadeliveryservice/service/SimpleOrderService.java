@@ -39,11 +39,6 @@ public class SimpleOrderService implements OrderService{
     public Order placeNewOrder(Order order) {
         order.setStatus(Order.Status.NEW);
         order.setDate(new Date());
-        return saveOrder(order);
-    }
-    
-    @Override
-    public Order saveOrder(Order order) {
         return orderRepository.addNew(order);
     }
 
@@ -53,14 +48,9 @@ public class SimpleOrderService implements OrderService{
             throw new NoSuchEntityException(Order.class);
         }
         for (Long id : pizzaID) {      
-            order.addPizza(getPizzaById(id));
+            order.addPizza(pizzaService.find(id));
         }
         return order;
-    }
-    
-
-    private Pizza getPizzaById(Long id) {
-        return pizzaService.find(id);
     }
 
     @Override
@@ -79,6 +69,13 @@ public class SimpleOrderService implements OrderService{
        Customer customer = customerService.findCustomerByLogin(login);
        order.setCustomer(customer);
        return order;
+    }
+
+    @Override
+    public Order addNewCustomerToOrder(Order order, Customer customer) {
+        Customer newCustomer = customerService.placeNewCustomer(customer);
+        order.setCustomer(newCustomer);
+        return order;
     }
 
 }

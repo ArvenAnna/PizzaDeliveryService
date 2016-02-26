@@ -1,6 +1,7 @@
 package anna.pizzadeliveryservice.repository;
 
 import anna.pizzadeliveryservice.domain.Customer;
+import anna.pizzadeliveryservice.domain.UserRole;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,8 +39,9 @@ public class JpaCustomerRepository implements CustomerRepository{
     }
 
     @Override
-    public Customer addNew(Customer entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Customer addNew(Customer customer) {
+        em.persist(customer);
+        return customer;
     }
 
     @Override
@@ -55,6 +57,13 @@ public class JpaCustomerRepository implements CustomerRepository{
     @Override
     public Set<Customer> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public UserRole findUserRole(String roleName) {
+        TypedQuery<UserRole> query = em.createNamedQuery("UserRole.findByRoleName", UserRole.class);
+        query.setParameter("role", roleName);
+        return query.getSingleResult();
     }
 
     

@@ -46,6 +46,9 @@ public class Address {
     @Column(name = "apartment")
     Integer apartment;
     
+    @Column(name = "tel")
+    Integer tel;
+    
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_ADDRESS_TO_CUSTOMER", 

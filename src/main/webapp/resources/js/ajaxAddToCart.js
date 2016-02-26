@@ -24,27 +24,21 @@ $(document).ready(function () {
             contentType: "application/json",
             //data: pobj,
             success: function (data) {
-                //alert(data["session_id"]);
+
                 alert(JSON.stringify(data, " ", 4));
                 
-                $("#divbasket").load("resources/htmlTemplates/basket.html", "html");
-                if (data["exception"]) {
-                    $(".errorMessage").html("блблабла");
-                };
-                var firstpizza = data['order']['details'][0]['pizza']['id'];
-                alert(firstpizza);
-                
-                for (i = 0, i < data['order']['details'].lenghts, i++) {
-                    var ipizza = data['order']['details'][i]['pizza']['id'];
-                    var icount = 1;
-                };
-                //$("span").html(data["session_id"]);
-
-                //var j = JSON.parse(data);
-                //alert(data['name']);
-//                    var f = JSON.stringify(data);
-//                    alert(JSON.stringify(data));
-//                    alert(JSON.parse(data));
+//                $("#divbasket").load("resources/htmlTemplates/basket.html", "html");
+//                if (data["exception"]) {
+//                    $(".errorMessage").html("блблабла");
+//                };
+//                var firstpizza = data['order']['details'][0]['pizza']['id'];
+//                alert(firstpizza);
+//                
+//                for (i = 0, i < data['order']['details'].lenghts, i++) {
+//                    var ipizza = data['order']['details'][i]['pizza']['id'];
+//                    var icount = 1;
+//                };
+ 
 
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -55,10 +49,10 @@ $(document).ready(function () {
             }
         });
 
-        var elements = document.getElementsByClassName(buttonValue);
-
-        cartElements[0].innerHTML = elements[0].innerHTML;
-        cartElements[1].innerHTML = elements[2].innerHTML;
+//        var elements = document.getElementsByClassName(buttonValue);
+//
+//        cartElements[0].innerHTML = elements[0].innerHTML;
+//        cartElements[1].innerHTML = elements[2].innerHTML;
 
 
     });

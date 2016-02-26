@@ -10,8 +10,6 @@ import anna.pizzadeliveryservice.domain.Order;
 public interface OrderService {
 
     Order placeNewOrder(Order order);
-
-    Order saveOrder(Order order);
     
     Order addPizzasToOrder(Order order, Long... pizzaID);
     
@@ -20,4 +18,7 @@ public interface OrderService {
     void setRates(Order order);
     
     Order addCustomerToOrderByLogin(Order order, String login);
+    
+    Order addNewCustomerToOrder(Order order, Customer customer);
+
 }
