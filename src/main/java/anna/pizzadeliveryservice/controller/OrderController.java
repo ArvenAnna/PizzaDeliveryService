@@ -6,6 +6,7 @@ import anna.pizzadeliveryservice.exception.TooManyPizzasException;
 import anna.pizzadeliveryservice.service.CustomerService;
 import anna.pizzadeliveryservice.service.OrderService;
 import anna.pizzadeliveryservice.validator.CustomerValidator;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.Principal;
 import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.context.request.WebRequest;
 
 /**
  *
@@ -170,7 +173,7 @@ public class OrderController {
     @RequestMapping(value = "/addcustomer", method = RequestMethod.POST)
     public String registrateCustomer(Model model,
             @ModelAttribute("customer") Customer customer,
-            BindingResult resultCustomer, HttpSession session) {
+            BindingResult resultCustomer, HttpSession session) throws UnsupportedEncodingException {
 
         accountValidator.validate(customer, resultCustomer);
         if (resultCustomer.hasErrors()) {
