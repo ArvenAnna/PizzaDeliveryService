@@ -8,24 +8,22 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-<div class=""  style="width:300px; background-color: yellow; top: 60px; position: fixed; z-index: 101;">
-<!--    <span class="" style="">В Вашей корзине <span class="" style="">0</span> товаров:</span></br></br>
-    <span class="errorMessage" style=""></span></br></br>
+<div class=""  style="width:300px; height: 1000px; background-color: yellow; top: 60px; position: fixed; z-index: 101;">
+    <span class="" style="">В Вашей корзине <span class="" style="">0</span> товаров:</span></br>
+    <span class="errorMessage" style=""></span>
     <div class="" id="basket" style="">
         <div id="divbasket">
-            <img src="resources/foto/cart.jpg" alt="Pizza image" style="margin-left: 40px"/></br></br>
+            <img class="typeImage" src="resources/foto/cart.jpg" alt="Pizza image" style="margin-left: 40px"/></br></br>
         </div>
         <div style="text-align: center;"> 
             Сумма заказа: <span class="" style=""><b>0</b></span> грн.</br>
             Сумма со скидкой: <span class="" style=""><b>0</b></span> грн.</br>
         </div>
-        <div class="text-center" style="">
-            <button class="btn btn-success" >Оформить заказ</button>
-        </div>
-    </div>-->
 
-    <form action="accept_order" method="POST">
-        <input type="submit" class="btn btn-success"  value="ffff"/>
+    </div>
+
+    <form action="accept_order" method="POST" >
+        <input id="submitOrder" disabled="disabled" type="submit" class="btn btn-success"  value="Оформить заказ"/>
         <sec:csrfInput />
     </form>
 

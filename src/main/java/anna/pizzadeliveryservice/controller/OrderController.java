@@ -35,6 +35,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
 /**
@@ -112,8 +113,8 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/removeSession", method = RequestMethod.POST)
-    public String sessionInvalidate(HttpSession session) {
-        session.invalidate();
+    public String sessionInvalidate(SessionStatus status) {
+        status.setComplete();
         return "home";
     }
 
