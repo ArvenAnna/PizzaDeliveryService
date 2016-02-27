@@ -27,6 +27,7 @@ public class JpaCustomerRepository implements CustomerRepository{
     public Customer findByAccountLogin(String login) {
         TypedQuery<Customer> query = em.createNamedQuery("Customer.findByLogin", Customer.class);
         query.setParameter("login", login);
+        System.out.println(login);
         List<Customer> elementList = query.getResultList();
         return CollectionUtils.isEmpty(elementList) ? null : elementList.get(0);
     }

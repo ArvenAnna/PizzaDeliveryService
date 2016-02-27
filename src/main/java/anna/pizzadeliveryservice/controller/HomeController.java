@@ -116,7 +116,7 @@ public class HomeController {
         pizzaServ.addPizza(p);
         
          p = new Pizza();
-        p.setName("Pro.png");
+        p.setName("Pro");
         p.setDescription("Пицца для особо занятых");
         p.setFoto("Pro.png");
         p.setPrice(54);

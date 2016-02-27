@@ -46,9 +46,6 @@ public class Address {
     
     @Column(name = "apartment")
     Integer apartment;
-    
-    @Column(name = "tel")
-    Integer tel;
 
     public Address() {
     }
@@ -145,12 +142,8 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" + "id=" + id + ", city=" + city + ", street=" + street +
-                ", house=" + house + ", apartment=" + apartment + ", tel=" + tel + '}';
+        return "Address{" + "id=" + id + ", city=" + city + ", street=" + street + ", house=" + house + ", apartment=" + apartment + '}';
     }
-
-    
-
-    
+  
     
 }
