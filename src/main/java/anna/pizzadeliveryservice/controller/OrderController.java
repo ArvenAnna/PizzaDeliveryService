@@ -8,6 +8,7 @@ import anna.pizzadeliveryservice.exception.TooManyPizzasException;
 import anna.pizzadeliveryservice.service.CustomerService;
 import anna.pizzadeliveryservice.service.OrderService;
 import anna.pizzadeliveryservice.service.PizzaService;
+import anna.pizzadeliveryservice.validator.AccountValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashSet;
@@ -24,14 +25,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Collection;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -47,16 +57,22 @@ public class OrderController {
 
     private CustomerService customerServ;
     private OrderService orderServ;
+    @Autowired
+    @Qualifier("authenticationManager")
+    private AuthenticationManager authenticationManager;
+    private AccountValidator accountValidator;
 
     @Autowired
-    public OrderController(CustomerService customerServ, OrderService orderServ) {
+    public OrderController(CustomerService customerServ, OrderService orderServ,
+            AccountValidator accountValidator) {
         this.customerServ = customerServ;
         this.orderServ = orderServ;
+        this.accountValidator = accountValidator;
     }
-    
-    @ModelAttribute ("order")
-    public Order addOrder () {
-        return new Order();    
+
+    @ModelAttribute("order")
+    public Order addOrder() {
+        return new Order();
     }
 
     @RequestMapping(value = "/addpizza/{id}", method = RequestMethod.POST,
@@ -65,7 +81,7 @@ public class OrderController {
     public Map<String, Object> addPizzaToOrder(@PathVariable String id, @ModelAttribute Order order,
             Principal principal, Model model) {
         Map<String, Object> json = new HashMap<>();
-        if (order == null) {
+        if (!order.getDetails().isEmpty()) {
             order = new Order();
             orderServ.setRates(order);
         }
@@ -91,7 +107,7 @@ public class OrderController {
     public Map<String, Object> delPizzaFromOrder(@PathVariable String id, @ModelAttribute Order order,
             Principal principal, Model model) {
         Map<String, Object> json = new HashMap<>();
-        if (order != null) {
+        if (!order.getDetails().isEmpty()) {
             if (order.getCustomer() == null) {
                 if (principal != null) {
                     orderServ.addCustomerToOrderByLogin(order, principal.getName());
@@ -117,12 +133,12 @@ public class OrderController {
         return "home";
     }
 
-    @RequestMapping(value = "/accept_order", method = RequestMethod.POST)
+    @RequestMapping(value = "/acceptorder", method = RequestMethod.POST)
     public String acceptOrder(@ModelAttribute Order order, WebRequest request,
             Principal principal, Model model) {
         String view;
         System.out.println("accept_order");
-        if (order != null) {
+        if (!order.getDetails().isEmpty()) {
             System.out.println("order not null");
             if (order.getCustomer() == null && principal == null) {
                 view = "registration";
@@ -135,7 +151,7 @@ public class OrderController {
                 System.out.println("vsyo ok");
                 model.addAttribute("accepted", true);
                 model.addAttribute("order", orderServ.placeNewOrder(order));
-                
+
                 request.removeAttribute("order", WebRequest.SCOPE_SESSION);
                 view = "order_accepted";
             }
@@ -155,7 +171,28 @@ public class OrderController {
 
     @RequestMapping(value = "/addcustomer", method = RequestMethod.POST)
     public String registrateCustomer(@ModelAttribute Customer customer, Model model,
-            @ModelAttribute Order order) {
+            @ModelAttribute Order order, HttpSession session, BindingResult result) {
+
+        System.out.println("ffff");
+        accountValidator.validate(customer.getAccount(), result);
+        if (result.hasErrors()) {
+            model.addAttribute("customer", customer);
+            return "registration";
+        }
+        System.out.println("gggggg");
+        String login = customer.getAccount().getUsername();
+        String password = customer.getAccount().getPassword();
+        UsernamePasswordAuthenticationToken authRequest
+                = new UsernamePasswordAuthenticationToken(login, password);
+        // Authenticate the user
+        Authentication authentication = authenticationManager.authenticate(authRequest);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authentication);
+        System.out.println("hhhhhhhh");
+        // Create a new session and add the security context.
+        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+
+        customer = customerServ.placeNewCustomer(customer);
         order.setCustomer(customer);
         model.addAttribute(order);
         return "redirect:accept_order";
@@ -165,7 +202,6 @@ public class OrderController {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
-    
     //public ResponseEntity<String> method(HttpEntity<String> entity) {…}
 //    @RequestMapping(method = RequestMethod.POST, value = "/emp")
 //    public @ResponseBody

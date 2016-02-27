@@ -31,7 +31,7 @@
     </beans:bean>
 
   
-    <authentication-manager>
+    <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <jdbc-user-service data-source-ref="dataSource" 
                                users-by-username-query=

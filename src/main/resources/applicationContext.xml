@@ -8,5 +8,6 @@
 ">
     <context:annotation-config/>
     <context:component-scan base-package="anna.pizzadeliveryservice.service"/>
+    <context:component-scan base-package="anna.pizzadeliveryservice.validator"/>
     
 </beans>

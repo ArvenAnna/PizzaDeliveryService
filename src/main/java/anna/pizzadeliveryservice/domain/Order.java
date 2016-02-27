@@ -44,7 +44,7 @@ public class Order {
     @JoinColumn(name = "order_id")
     List<OrderDetail> details = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_ORDER_TO_CUSTOMER",
             foreignKeyDefinition = "FOREIGN KEY (customer_id) "
             + "REFERENCES public.customer (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))

@@ -13,7 +13,7 @@
     </div>
     <div class="col-lg-18" style="top: 40px;">
         <sec:authorize access="isAnonymous()">
-            <form action="add_customer" method="POST">
+            <form action="addcustomer" method="POST">
                 <input name="name" type="text" />
                 <input name="account.username" type="text" />    
                 <input name="account.password" type="password" />  
@@ -30,7 +30,7 @@
             </c:if>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
-            <form action="accept_order" method="POST">
+            <form action="acceptorder" method="POST">
                 <input type="submit" value="Next"/>
                 <sec:csrfInput />
             </form>

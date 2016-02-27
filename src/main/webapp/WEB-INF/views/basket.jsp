@@ -24,7 +24,7 @@
         </div>
     </div>-->
 
-    <form action="accept_order" method="POST">
+    <form action="acceptorder" method="POST">
         <input type="submit" class="btn btn-success"  value="ffff"/>
         <sec:csrfInput />
     </form>

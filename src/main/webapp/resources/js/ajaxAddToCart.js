@@ -26,7 +26,6 @@ $(document).ready(function () {
             success: function (data) {
 
                 alert(JSON.stringify(data, " ", 4));
-                
 //                $("#divbasket").load("resources/htmlTemplates/basket.html", "html");
 //                if (data["exception"]) {
 //                    $(".errorMessage").html("блблабла");
