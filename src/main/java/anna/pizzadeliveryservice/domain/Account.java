@@ -39,7 +39,7 @@ public class Account {
     @Column(name = "availability")
     Boolean availability;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userRole_account",
             joinColumns
             = {
@@ -65,6 +65,7 @@ public class Account {
     public String getUsername() {
         return username;
     }
+    
 
     public void setUsername(String username) {
         this.username = username;

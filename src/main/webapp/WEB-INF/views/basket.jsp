@@ -8,8 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-<div class=""  style="width:300px; height: 550px; background-color: yellow; top: 60px; position: fixed; z-index: 101; margin: 3px; overflow: auto;">
-    <span class="" style="">В Вашей корзине <span class="countItems" style="">0</span> товаров:</span><br><br>
+<div class=""  style="width:300px; height: 550px; background-color: yellow; top: 60px; position: fixed; z-index: 101; margin-top: 5px; overflow: auto;">
+    <span class="" style="margin-top: 20px; margin-left: 10px">В Вашей корзине <span class="countItems" style="">0</span> товаров:</span><br><br>
     <span class="errorMessage" style=""></span>
     <div class="" id="basket" style="">
         <div id="divbasket">
@@ -20,9 +20,10 @@
             Сумма со скидкой: <span class="summ2" style=""><b>0</b></span> грн.</br>
         </div>
 
+
     </div>
 
-    <form action="accept_order" method="POST" >
+    <form action="acceptorder" method="POST" >
         <input id="submitOrder" disabled="disabled" type="submit" class="btn btn-success" style="margin-left: 80px" value="Оформить заказ"/>
         <sec:csrfInput />
     </form>

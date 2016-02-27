@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
  */
 
 import javax.persistence.ForeignKey;
+import javax.persistence.OneToOne;
 @Component
 @Entity 
 @Table(name = "address")
@@ -48,13 +49,6 @@ public class Address {
     
     @Column(name = "tel")
     Integer tel;
-    
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_ADDRESS_TO_CUSTOMER", 
-            foreignKeyDefinition = "FOREIGN KEY (customer_id) REFERENCES public.customer (id) "
-                    + "MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
-    Customer customer;
 
     public Address() {
     }
@@ -108,14 +102,6 @@ public class Address {
         this.apartment = apartment;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -157,13 +143,14 @@ public class Address {
         return true;
     }
 
-    
-
     @Override
     public String toString() {
-        return "Address{" + "id=" + id + ", city=" + city + ", street=" + 
-                street + ", house=" + house + ", apartment=" + apartment + 
-                ", customer=" + customer.id + '}';
+        return "Address{" + "id=" + id + ", city=" + city + ", street=" + street +
+                ", house=" + house + ", apartment=" + apartment + ", tel=" + tel + '}';
     }
+
+    
+
+    
     
 }

@@ -9,51 +9,42 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="row" style="margin-top: 10px;">
+    pizza1
+    <form action="removeSession" method="POST">
+        <button type="submit">очистить</button>
+        <sec:csrfInput />
+    </form>
     
-        <div class="col-lg-8">
-            <c:forEach var="pizza" items="${somePizzas}"> <!-- Цикл по списку сообщений -->
-                <div style="width: 300px; background-color: yellow; margin: 5%;">
-                    <div >
-                        <a href="">
-                            <div style="text-align: center;">
-                                <span><b><c:out value="${pizza.name}"/></b></span></br>
-                                <span><c:out value="${pizza.pizzaType}"/></span>
-                            </div>
-                            <img src="<s:url value="/resources"/>/foto/<c:out value="${pizza.foto}"/>" class="img-rounded"/>
-                        </a>
-                        <span style="margin-left: 10px"><c:out value="${pizza.description}" /></span></br>
+        <c:forEach var="pizza" items="${somePizzas}"> <!-- Цикл по списку сообщений -->
+            <div style="width: 300px; background-color: yellow; margin: 5%;">
+                <div >
+                    <a href="">
                         <div style="text-align: center;">
-                            <span>Cтоимость: <b><c:out value="${pizza.price}" /></b> грн.</span>
+                            <span><b><c:out value="${pizza.name}"/></b></span></br>
+                            <span><c:out value="${pizza.pizzaType}"/></span>
                         </div>
-
-                        <button id="order" name="${pizza.id}" class="addPizza btn btn-success" style="margin-left: 70px" value="${pizza.id}">Добавить в корзину</button>
-                        <ul id="${pizza.id}" style="visibility: hidden; display: none">
-                            <li class="${pizza.id}">${pizza.name}</li>
-                            <li class="${pizza.id}">${pizza.foto}</li>
-                            <li class="${pizza.id}">${pizza.price}</li>
-                        </ul>
+                        <img src="<s:url value="/resources"/>/foto/<c:out value="${pizza.foto}"/>" class="img-rounded" width="300" height="280"/>
+                    </a>
+                    <span style="margin-left: 10px"><c:out value="${pizza.description}" /></span></br>
+                    <div style="text-align: center;">
+                        <span>Cтоимость: <b><c:out value="${pizza.price}" /></b> грн.</span>
                     </div>
+
+                    <button id="order" name="${pizza.id}" class="addPizza btn btn-success" style="margin-left: 70px" value="${pizza.id}">Добавить в корзину</button>
+                    <ul id="${pizza.id}" style="visibility: hidden; display: none">
+                        <li class="${pizza.id}">${pizza.name}</li>
+                        <li class="${pizza.id}">${pizza.foto}</li>
+                        <li class="${pizza.id}">${pizza.price}</li>
+                    </ul>
                 </div>
-                <%-- <img src=
-                      "<s:url value="/resources"/>/foto.JPG"/> --%>
+            </div>
+            <%-- <img src=
+                  "<s:url value="/resources"/>/foto.JPG"/> --%>
 
-            </c:forEach>  
-        </div>
-    
-    <div class="col-lg-8">
-        <div id="pizza1">
-            pizza1
-            <form action="removeSession" method="POST">
-                <button type="submit">очистить</button>
-                    <sec:csrfInput />
-            </form>
-        </div>
-    </div>
-    <div class="col-lg-8">
-        <div>pizza1</div>
+        </c:forEach>  
     </div>
 
-</div>
+
 <script>
 
 </script>

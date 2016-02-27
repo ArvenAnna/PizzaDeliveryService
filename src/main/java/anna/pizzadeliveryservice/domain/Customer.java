@@ -21,11 +21,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
- * @author Anna
- * Entity represents customer of pizza service
+ * @author Anna Entity represents customer of pizza service
  */
-
-@Entity 
+@Entity
 @Table(name = "customer")
 @NamedQueries({
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
@@ -33,32 +31,38 @@ import javax.persistence.Table;
     @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name"),
     @NamedQuery(name = "Customer.findByLogin", query = "SELECT c FROM Customer c, Account a WHERE a.username = :login")})
 public class Customer {
-    
-    @Id 
+
+    @Id
     @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "sequenceGenerator", sequenceName = "customer_ids")
-    @Column(name = "id", nullable = false) 
+    @Column(name = "id", nullable = false)
     Long id;
-    
+
     @Column(name = "name")
     String name;
-    
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    Set<Address> address = new HashSet<>();
-    
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "card_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_CARD", 
-            foreignKeyDefinition = "FOREIGN KEY (card_id) " +
-            "REFERENCES public.card (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
+    @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_ADDRESS",
+            foreignKeyDefinition = "FOREIGN KEY (address_id) REFERENCES public.address (id) "
+            + "MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
+    Address address;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "card_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_CARD",
+            foreignKeyDefinition = "FOREIGN KEY (card_id) "
+            + "REFERENCES public.card (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
     Card card;
-    
+
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "account_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_ACCOUNT", 
-            foreignKeyDefinition = "FOREIGN KEY (account_id) " +
-            "REFERENCES public.account (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
+    @JoinColumn(name = "account_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_ACCOUNT",
+            foreignKeyDefinition = "FOREIGN KEY (account_id) "
+            + "REFERENCES public.account (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
     Account account;
-    
+
+    @Column(name = "tel")
+    String tel;
+
     public Customer() {
     }
 
@@ -70,11 +74,11 @@ public class Customer {
     public Customer(String name) {
         this.name = name;
     }
-    
-    public void addSumToCard(int sum){
-        if(card != null){
+
+    public void addSumToCard(int sum) {
+        if (card != null) {
             card.sum = card.sum + sum;
-        }  
+        }
     }
 
     public Card getCard() {
@@ -83,6 +87,14 @@ public class Customer {
 
     public void setCard(Card card) {
         this.card = card;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public Long getId() {
@@ -109,11 +121,12 @@ public class Customer {
         this.name = name;
     }
 
-    public Set<Address> getAddress() {
+    public Address getAddress() {
+        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
         return address;
     }
 
-    public void setAddress(Set<Address> address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
@@ -156,7 +169,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" + "id=" + id + ", name=" + name + ", address=" + 
-                address + ", card=" + card + '}';
-    }    
+        return "Customer{" + "id=" + id + ", name=" + name + ", address="
+                + address + ", card=" + card + '}';
+    }
 }

@@ -7,37 +7,25 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<c:set var="order" value='<%= session.getAttribute("order")%>'/>
 
 
-<c:choose>
-    <c:when  test="${order==null}">
-        <span class="" style="">В Вашей корзине <span class="" style="">0</span> товаров:</span></br>
-    </c:when>
-    <c:otherwise>
-        dfcz
-        <span class="" style="">В Вашей корзине <span class="" style="">${order.details.size()}</span> товаров:</span></br>
+<div class="row" style="margin-top: 50px;">
+    <div class="col-lg-6">
+
+    </div>
+    <div class="col-lg-18" style="top: 40px;">
+        <span class="" style="">Вы заказали <span class="" style="">${order.details.size()}</span> пицц:</span></br>
         <c:forEach var="detail" items="${order.details}">
-            <div style="text-align: center;"> 
-                <a href=""><span class="cart" style=""><b></b></span></br></a>
-            </div>
-            <img src="resources/foto/cart.jpg" alt="Pizza image" style="margin-left: 40px"/>
-            <div style="text-align: center;"> 
-                Цена: <span class="cart" style="">${detail.price}</span> грн.</br>
-            </div>
-            <div style="margin-left: 100px;">
-                <button class="glyphicon glyphicon-plus"></button>
-                <span class=""><b>1</b></span> шт.
-                <button class="glyphicon glyphicon-minus"></button>
-            </div>
-
+            Название: <span class="cart" style="">${detail.pizza.name}</span><br>
+            Цена: <span class="cart" style="">${detail.price}</span> грн.<br>
         </c:forEach>
         <div style="text-align: center;"> 
-            Всего к оплате: <span class="" style=""><b>${order.pureCost}</b></span> грн.</br>
+            Сумма: <span class="" style=""><b>${order.pureCost}</b></span> грн.</br>
+            Всего к оплате: <span class="" style=""><b>${order.rateCost}</b></span> грн.</br>
         </div>
-        <div class="text-center" style="">
+    </div>
+</div>
 
-        </div>
-    </c:otherwise>
-</c:choose>
+
+
 

@@ -53,4 +53,7 @@
     <definition name="registration" extends="template" >
         <put-attribute name="grid_6-18" value="/WEB-INF/views/registration.jsp" />
     </definition>
+    <definition name="account" extends="template" >
+        <put-attribute name="grid_6-18" value="/WEB-INF/views/account.jsp" />
+    </definition>
 </tiles-definitions>
