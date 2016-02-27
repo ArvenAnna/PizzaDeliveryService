@@ -46,9 +46,9 @@ public class OrderController {
         this.orderServ = orderServ;
         this.accountValidator = accountValidator;
     }
-    
+
     @ModelAttribute(value = "customer")
-    public Customer addCustomerToModel (){
+    public Customer addCustomerToModel() {
         return new Customer();
     }
 
@@ -58,8 +58,8 @@ public class OrderController {
     public Map<String, Object> addPizzaToOrder(@PathVariable String id, HttpSession session,
             Principal principal) {
         Map<String, Object> json = new HashMap<>();
-        Order order = (Order)session.getAttribute("order");
-        if (order==null) {
+        Order order = (Order) session.getAttribute("order");
+        if (order == null) {
             System.out.println("empty");
             order = new Order();
             orderServ.setRates(order);
@@ -80,14 +80,27 @@ public class OrderController {
         return json;
     }
 
+    @RequestMapping(value = "/showorder", method = RequestMethod.POST,
+            headers = "Accept=application/json")
+    @ResponseBody
+    public Map<String, Object> showOrder(HttpSession session) {
+        Map<String, Object> json = new HashMap<>();
+        Order order = (Order) session.getAttribute("order");
+        if (order == null) {
+        } else {
+            json.put("order", order);
+        }
+        return json;
+    }
+
     @RequestMapping(value = "/delpizza/{id}", method = RequestMethod.POST,
             headers = "Accept=application/json")
     @ResponseBody
     public Map<String, Object> delPizzaFromOrder(@PathVariable String id,
             Principal principal, HttpSession session) {
         Map<String, Object> json = new HashMap<>();
-        Order order = (Order)session.getAttribute("order");
-        if (order!=null) {
+        Order order = (Order) session.getAttribute("order");
+        if (order != null) {
             if (order.getCustomer() == null) {
                 if (principal != null) {
                     orderServ.addCustomerToOrderByLogin(order, principal.getName());
@@ -107,23 +120,19 @@ public class OrderController {
         return json;
     }
 
-    
-    
     @RequestMapping(value = "/removeSession", method = RequestMethod.POST)
     public String sessionInvalidate(HttpSession session) {
         session.invalidate();
         return "home";
     }
 
-    
-    
     @RequestMapping(value = "/acceptorder")
     public String acceptOrder(HttpSession session, Principal principal, Model model) {
-        
+
         String view;
-        Order order = (Order)session.getAttribute("order");
+        Order order = (Order) session.getAttribute("order");
         System.out.println("accept_order");
-        if (order!=null) {
+        if (order != null) {
             System.out.println("order not null");
             System.out.println(order);
             if (order.getCustomer() == null && principal == null) {
@@ -141,7 +150,7 @@ public class OrderController {
                 model.addAttribute("accepted", true);
                 session.removeAttribute("order");
                 model.addAttribute("order", orderServ.placeNewOrder(order));
-                
+
                 view = "order_accepted";
             }
         } else {
@@ -160,33 +169,29 @@ public class OrderController {
 
     @RequestMapping(value = "/addcustomer", method = RequestMethod.POST)
     public String registrateCustomer(Model model,
-            @ModelAttribute("customer") Customer customer, 
+            @ModelAttribute("customer") Customer customer,
             BindingResult resultCustomer, HttpSession session) {
 
-        
         accountValidator.validate(customer, resultCustomer);
         if (resultCustomer.hasErrors()) {
             model.addAttribute("customer", customer);
             return "registration";
         }
- 
+
         String login = customer.getAccount().getUsername();
         String password = customer.getAccount().getPassword();
         System.out.println(password);
         UsernamePasswordAuthenticationToken authRequest
                 = new UsernamePasswordAuthenticationToken(login, password);
- 
+
         // Authenticate the user
         //Authentication authentication = authenticationManager.authenticate(authRequest);
- 
         //SecurityContext securityContext = SecurityContextHolder.getContext();
         //securityContext.setAuthentication(authentication);
-
         // Create a new session and add the security context.
         //session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-
         customer = customerServ.placeNewCustomer(customer);
-        Order order = (Order)session.getAttribute("order");
+        Order order = (Order) session.getAttribute("order");
         order.setCustomer(customer);
         session.setAttribute("order", order);
         //model.addAttribute(order);
