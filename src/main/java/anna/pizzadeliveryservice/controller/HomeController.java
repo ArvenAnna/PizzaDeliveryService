@@ -3,6 +3,7 @@ package anna.pizzadeliveryservice.controller;
 import anna.pizzadeliveryservice.domain.Pizza;
 import anna.pizzadeliveryservice.service.PizzaService;
 import java.util.Map;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,8 @@ public class HomeController {
   
     @RequestMapping(value = {"","/homepage", "/signin"}, method = RequestMethod.GET)
     public String showHomePage(Model model){
-        model.addAttribute("somePizzas", pizzaServ.chooseRandomSomePizzas());
+        Set<Pizza> pzs = pizzaServ.chooseRandomSomePizzas();
+        model.addAttribute("somePizzas", pzs);  
         //fillDB();
         return "home"; //вернуть имя представления
     }

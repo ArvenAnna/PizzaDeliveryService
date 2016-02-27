@@ -6,6 +6,7 @@ import anna.pizzadeliveryservice.service.CustomerService;
 import java.security.Principal;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +22,7 @@ public class CustomerController {
 
     private CustomerService customerServ;
 
+    @Autowired
     public CustomerController(CustomerService customerServ) {
         this.customerServ = customerServ;
     }

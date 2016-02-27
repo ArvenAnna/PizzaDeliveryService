@@ -8,12 +8,12 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<div class="row">
+<div class="row" style="margin-top: 10px;">
     
         <div class="col-lg-8">
             <c:forEach var="pizza" items="${somePizzas}"> <!-- Цикл по списку сообщений -->
                 <div style="width: 300px; background-color: yellow; margin: 5%;">
-                    <div id="">
+                    <div >
                         <a href="">
                             <div style="text-align: center;">
                                 <span><b><c:out value="${pizza.name}"/></b></span></br>
@@ -21,13 +21,13 @@
                             </div>
                             <img src="<s:url value="/resources"/>/foto/<c:out value="${pizza.foto}"/>" class="img-rounded"/>
                         </a>
-                        <span><c:out value="${pizza.description}" /></span></br>
+                        <span style="margin-left: 10px"><c:out value="${pizza.description}" /></span></br>
                         <div style="text-align: center;">
                             <span>Cтоимость: <b><c:out value="${pizza.price}" /></b> грн.</span>
                         </div>
 
-                        <button id="order" name="${pizza.id}" class="addPizza btn btn-success" style="" value="${pizza.id}">Добавить в корзину</button>
-                        <ul id="${pizza.id}" style="visibility: hidden; display: none;">
+                        <button id="order" name="${pizza.id}" class="addPizza btn btn-success" style="margin-left: 70px" value="${pizza.id}">Добавить в корзину</button>
+                        <ul id="${pizza.id}" style="visibility: hidden; display: none">
                             <li class="${pizza.id}">${pizza.name}</li>
                             <li class="${pizza.id}">${pizza.foto}</li>
                             <li class="${pizza.id}">${pizza.price}</li>
