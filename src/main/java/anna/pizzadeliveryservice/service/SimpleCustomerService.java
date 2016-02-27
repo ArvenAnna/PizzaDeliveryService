@@ -35,12 +35,11 @@ public class SimpleCustomerService implements CustomerService {
 
     @Override
     public Customer placeNewCustomer(Customer customer) {
-        Card card = new Card();
-        card.setSum(0);
-        customer.setCard(card);
+        customer.setCard(new Card());
+        customer.getCard().setSum(0);
         customer.getAccount().setAvailability(true);
         Set<UserRole> roles = new HashSet<>();
-        UserRole role = customerRepository.findUserRole("ROLE_USER");
+        UserRole role = customerRepository.findUserRole("ROLE_CUSTOMER");
         roles.add(role);
         customer.getAccount().setRoles(roles);
         return customerRepository.addNew(customer);

@@ -39,7 +39,7 @@ public class Account {
     @Column(name = "availability")
     Boolean availability;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userRole_account",
             joinColumns
             = {

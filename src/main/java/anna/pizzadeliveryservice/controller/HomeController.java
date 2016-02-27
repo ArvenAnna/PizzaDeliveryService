@@ -44,30 +44,81 @@ public class HomeController {
         Pizza p = new Pizza();
         p.setName("Margarita");
         p.setDescription("Очень вкусная пицца");
-        p.setFoto("margarita.png");
-        p.setPrice(34);
+        p.setFoto("Margarita.png");
+        p.setPrice(50);
+        p.setPizzaType(Pizza.PizzaType.Meat);        
+        pizzaServ.addPizza(p);
+        
+        p = new Pizza();
+        p.setName("Labradu");
+        p.setDescription("С фасолью и специями");
+        p.setFoto("Labradu.png");
+        p.setPrice(45);
+        p.setPizzaType(Pizza.PizzaType.Vegetarian);       
+        pizzaServ.addPizza(p);  
+        
+        p = new Pizza();
+        p.setName("Solina");
+        p.setDescription("Натуральные раки и крабы");
+        p.setFoto("Solina.png");
+        p.setPrice(56);
+        p.setPizzaType(Pizza.PizzaType.Sea);
+        pizzaServ.addPizza(p); 
+        
+        p = new Pizza();
+        p.setName("Razzya");
+        p.setDescription("Загадочная пицца");
+        p.setFoto("Razzya.png");
+        p.setPrice(130);
+        p.setPizzaType(Pizza.PizzaType.Sea);
+        pizzaServ.addPizza(p);
+        
+        p = new Pizza();
+        p.setName("Lubu");
+        p.setDescription("Крайне малокалорийная");
+        p.setFoto("Lubu.png");
+        p.setPrice(75);
+        p.setPizzaType(Pizza.PizzaType.Vegetarian);
+        pizzaServ.addPizza(p);
+        
+         p = new Pizza();
+        p.setName("Polya");
+        p.setDescription("Несравненный вкус и аромат");
+        p.setFoto("Polya.png");
+        p.setPrice(45);
         p.setPizzaType(Pizza.PizzaType.Meat);
         pizzaServ.addPizza(p);
-        p = new Pizza();
-        p.setName("Pizza sssss");
-        p.setDescription("sssss");
-        p.setFoto("/foto/ffff");
-        p.setPrice(45);
+        
+         p = new Pizza();
+        p.setName("Missardis");
+        p.setDescription("Полузакрытый вариант");
+        p.setFoto("Misardis.png");
+        p.setPrice(63);
         p.setPizzaType(Pizza.PizzaType.Sea);
-        pizzaServ.addPizza(p);  
-        p = new Pizza();
-        p.setName("Pizza ggoooo");
-        p.setDescription("gogo");
-        p.setFoto("/foto/gogo");
-        p.setPrice(56);
+        pizzaServ.addPizza(p);
+        
+         p = new Pizza();
+        p.setName("Furia");
+        p.setDescription("Пицца небывалого размера");
+        p.setFoto("Furia.png");
+        p.setPrice(130);
+        p.setPizzaType(Pizza.PizzaType.Meat);
+        pizzaServ.addPizza(p);
+        
+         p = new Pizza();
+        p.setName("Sokoko");
+        p.setDescription("С особым секретным ингридиентом");
+        p.setFoto("Sokoko.png");
+        p.setPrice(48);
+        p.setPizzaType(Pizza.PizzaType.Meat);
+        pizzaServ.addPizza(p);
+        
+         p = new Pizza();
+        p.setName("Pro.png");
+        p.setDescription("Пицца для особо занятых");
+        p.setFoto("Pro.png");
+        p.setPrice(54);
         p.setPizzaType(Pizza.PizzaType.Vegetarian);
-        pizzaServ.addPizza(p); 
-        p = new Pizza();
-        p.setName("Pizza yyuuo");
-        p.setDescription("yuyuyuyu");
-        p.setFoto("/foto/yuyuyu");
-        p.setPrice(89);
-        p.setPizzaType(Pizza.PizzaType.Vegetarian);
-        pizzaServ.addPizza(p); 
+        pizzaServ.addPizza(p);
     }
 }

@@ -15,7 +15,8 @@ $(document).ready(function () {
         var csrfHeader = $("meta[name='_csrf_header']").attr("content");
         var csrfToken = $("meta[name='_csrf']").attr("content");
         var headers = {};
-	headers[csrfHeader] = csrfToken;
+        headers[csrfHeader] = csrfToken;
+        $("#submitOrder").removeAttr("disabled");
 
         $.ajax({
             type: "POST",
@@ -26,18 +27,39 @@ $(document).ready(function () {
             success: function (data) {
 
                 alert(JSON.stringify(data, " ", 4));
-//                $("#divbasket").load("resources/htmlTemplates/basket.html", "html");
+
 //                if (data["exception"]) {
 //                    $(".errorMessage").html("блблабла");
+//                }
+//                ;
+//                alert(data['order']['details'].length);
+//                var idArr = [];
+//                for (i = 0; i < data['order']['details'].length; i++) {
+//
+//                    if (idArr[data['order']['details'][i]["pizza"]["id"]] !== undefined) {
+//                        idArr[data['order']['details'][i]["pizza"]["id"]]++;
+//                    } else {
+//                        idArr[data['order']['details'][i]["pizza"]["id"]] = 1;
+//                    }
+//                    ;
+//                }
+//                ;
+//                var count = 0;
+//                for (i = 0; i < idArr.length; i++) {
+//
+//                    if (idArr[i] !== undefined) {
+//                        count++;
+//                        $("#divbasket").append("<div id='" + i + "'></div>");
+//                        $("#" + i + "").load("resources/htmlTemplates/basket.html", "html");
+//                        for (j = 0; j < data['order']['details'].length; i++) {
+//                            if (data['order']['details'][j]["pizza"]["id"] === idArr[i]) {
+//                                var pizzaName = data['order']['details'][j]["pizza"]["name"];
+//                            };
+//                        };
+//                        $("#" + i + " > div > a > span").html(pizzaName);
+//                    };
 //                };
-//                var firstpizza = data['order']['details'][0]['pizza']['id'];
-//                alert(firstpizza);
-//                
-//                for (i = 0, i < data['order']['details'].lenghts, i++) {
-//                    var ipizza = data['order']['details'][i]['pizza']['id'];
-//                    var icount = 1;
-//                };
- 
+
 
             },
             error: function (xhr, ajaxOptions, thrownError) {

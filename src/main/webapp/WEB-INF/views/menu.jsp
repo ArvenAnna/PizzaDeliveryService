@@ -14,6 +14,9 @@
             <li><a href="delivery">Доставка</a></li>
             <li><a href="discount">Акции</a></li>
             <li><a href="contacts">Контакты</a></li>
+                <sec:authorize access="hasRole('ROLE_CUSTOMER')">
+                <li><a href="account">Мой профиль</a></li>
+                </sec:authorize>
         </ul>
         <sec:authorize access="isAnonymous()">
             <form action="login" method="POST">

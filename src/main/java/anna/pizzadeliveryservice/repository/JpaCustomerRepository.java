@@ -2,12 +2,14 @@ package anna.pizzadeliveryservice.repository;
 
 import anna.pizzadeliveryservice.domain.Customer;
 import anna.pizzadeliveryservice.domain.UserRole;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 /**
  *
@@ -25,7 +27,8 @@ public class JpaCustomerRepository implements CustomerRepository{
     public Customer findByAccountLogin(String login) {
         TypedQuery<Customer> query = em.createNamedQuery("Customer.findByLogin", Customer.class);
         query.setParameter("login", login);
-        return query.getSingleResult();
+        List<Customer> elementList = query.getResultList();
+        return CollectionUtils.isEmpty(elementList) ? null : elementList.get(0);
     }
 
     @Override

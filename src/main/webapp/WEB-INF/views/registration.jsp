@@ -5,6 +5,9 @@
 --%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form"%>
+<%@taglib  uri="http://www.springframework.org/tags" prefix="springnew"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="row" style="margin-top: 50px;">
@@ -13,27 +16,57 @@
     </div>
     <div class="col-lg-18" style="top: 40px;">
         <sec:authorize access="isAnonymous()">
-            <form action="addcustomer" method="POST">
-                <input name="name" type="text" />
-                <input name="account.username" type="text" />    
-                <input name="account.password" type="password" />  
-                <input name="address.city" type="text" />
-                <input name="address.street" type="text" />
-                <input name="address.house" type="text" />
-                <input name="address.apartment" type="text" />
-                <input name="address.tel" type="text" />
-                <input name="commit" type="submit" value="Next" />
+            <spring:form method="POST" action="addcustomer" modelAttribute="customer" commandName="customer">
+
+
+                <springnew:bind path="customer.name">
+                    <input name="${status.expression}" type="text" />
+                </springnew:bind>
+
+                <spring:errors path="account.username" cssClass="error"/>
+                <springnew:bind path="customer.account.username">
+                    <input name="${status.expression}" type="text" />  
+                </springnew:bind>
+
+
+                <springnew:bind path="customer.account.password">
+                    <input name="${status.expression}" type="password"/>  
+                </springnew:bind>
+
+
+                <springnew:bind path="customer.address.city">
+                    <input name="${status.expression}" type="text"/>
+                </springnew:bind>
+
+
+                <springnew:bind path="customer.address.street">
+                    <input name="${status.expression}" type="text"/>
+                </springnew:bind>
+
+
+                <springnew:bind path="customer.address.house">
+                    <input name="${status.expression}" type="text"/>
+                </springnew:bind>
+
+
+                <springnew:bind path="customer.address.apartment">
+                    <input name="${status.expression}" type="text"/>
+                </springnew:bind>
+
+
+                <springnew:bind path="customer.tel">
+                    <input name="${status.expression}" type="text"/>
+                </springnew:bind>
+
+                    <spring:button name="submit" value="Next">Next</spring:button>
                 <sec:csrfInput />
-            </form>
-            <c:if test='${login_error}'>
-                login failed
-            </c:if>
+            </spring:form>
+
+            If I want to login I have to do it now
+            
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
-            <form action="acceptorder" method="POST">
-                <input type="submit" value="Next"/>
-                <sec:csrfInput />
-            </form>
+
         </sec:authorize>
     </div>
 </div>
