@@ -18,5 +18,7 @@ public interface CustomerService {
     Customer changeTelephoneByLogin(String login, String tel);
     
     Customer changeAddressByLogin(String login, Address address);
+    
+    Customer changeCustomersInformation(Customer customer);
  
 }

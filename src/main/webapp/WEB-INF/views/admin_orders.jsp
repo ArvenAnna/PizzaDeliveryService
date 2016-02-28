@@ -28,11 +28,58 @@
             </c:forEach>
             ${order.pureCost}
             ${order.rateCost}
+
+            <select name="status">
+                <c:forEach var="status" items="${statuses}">
+                    <option>${status}</option>
+                </c:forEach>
+            </select>
+            <button class="accept" value="${order.id}">ghbvtybnm</button>
         </c:forEach>
-        <select name="status">
-            <c:forEach var="status" items="${statuses}">
-                <option>${status}</option>
-            </c:forEach>
-        </select>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $(".accept").on('click', setStatus);
+    });
+
+    function setStatus(event) {
+        var button = $(event.target);
+        var id = button.val();
+        alert(id);
+        var select = button.prev();
+        var status = select.val();
+        var data = {orderId: id, status: status};
+        ajaxTemplate("changestatus", data);
+        // insert var status in tag with order.status
+        return false;
+    }
+    ;
+
+    function ajaxTemplate(url, data) {
+        
+        data = JSON.stringify(data);
+        alert(data);
+        
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var headers = {};
+        headers[csrfHeader] = csrfToken;
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            headers: headers,
+            contentType: "application/json",
+            data: data,
+            success: function (data) {
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+    ;
+</script>

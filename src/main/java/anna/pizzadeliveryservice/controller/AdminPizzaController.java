@@ -1,14 +1,21 @@
 package anna.pizzadeliveryservice.controller;
 
+import anna.pizzadeliveryservice.dto.OrderDto;
 import anna.pizzadeliveryservice.domain.Order;
 import anna.pizzadeliveryservice.service.OrderService;
 import anna.pizzadeliveryservice.service.PizzaService;
+import java.security.Principal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -45,5 +52,14 @@ public class AdminPizzaController {
         model.addAttribute("statuses", statuses);
         
         return "admin/orders";
+    }
+    
+    
+    @RequestMapping(value = "/changestatus", method = RequestMethod.POST,
+            headers = "Accept=application/json")
+    @ResponseBody
+    public void changeStatus(@RequestBody OrderDto data) {
+        System.out.println(data);
+        orderServ.changeOrderStatus(data.getOrderId(), data.getStatus());
     }
 }
