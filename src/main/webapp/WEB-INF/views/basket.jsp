@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-<div class=""  style="width:300px; height: 550px; background-color: yellow; top: 60px; position: fixed; z-index: 101; margin-top: 5px; overflow: auto;">
+<div class=""  style="width:300px; height: 600px; background-color: yellow; top: 60px; position: fixed; z-index: 101; margin-top: 5px; overflow: auto;">
     <span class="" style="margin-top: 20px; margin-left: 10px">В Вашей корзине <span class="countItems" style="">0</span> товаров:</span><br><br>
     <span class="errorMessage" style=""></span>
     <div class="" id="basket" style="">

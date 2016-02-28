@@ -16,12 +16,12 @@
     </form>
     
         <c:forEach var="pizza" items="${somePizzas}"> <!-- Цикл по списку сообщений -->
-            <div style="width: 300px; background-color: yellow; margin: 5%;">
+            <div style="width: 300px; background-color: yellow; margin: 5%; float:left; ">
                 <div >
                     <a href="">
                         <div style="text-align: center;">
-                            <span><b><c:out value="${pizza.name}"/></b></span></br>
-                            <span><c:out value="${pizza.pizzaType}"/></span>
+                            <span style="font-weight: bold; color: black"><b><c:out value="${pizza.name}"/></b></span></br>
+                            <span style="color: black"><c:out value="${pizza.pizzaType}"/></span>
                         </div>
                         <img src="<s:url value="/resources"/>/foto/<c:out value="${pizza.foto}"/>" class="img-rounded" width="300" height="280"/>
                     </a>

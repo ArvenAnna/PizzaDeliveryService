@@ -83,12 +83,13 @@ function jsonProcessing(data) {
         $("#divbasket").html("");
         for (i = 0; i < idArr.length; i++) {
             if (idArr[i] != null) {
-
+                
                 $("#divbasket").append("<div id='" + i + "'></div>");
-                $("#" + i).append('<div class="" style="text-align: center;"><a href=""><span id="" class="cart" style="">xxx</span><br></a></div><img src="" alt="Pizza image" style="margin-left: 40px"/><div style="text-align: center;">Цена: <span class="cart" style="">0</span> грн.</br></div><div style="margin-left: 100px;"><button class="glyphicon glyphicon-plus" name="addpizza"></button><span class=""> <b>1</b> </span> шт.<button class="glyphicon glyphicon-minus" name="delpizza"></button></div>');
-                $("#" + i + " > div > a > span").html(idArr[i]["namePizza"]);
+                $("#" + i).append('<div class="" style="text-align: center;"><a href=""><span id="" class="cart" style="font-weight: bold; color: black">xxx</span><br></a></div><img src="" class="center-block" alt="Pizza image" width="160" height="150"/><div style="text-align: center;">Цена: <span class="cart" style="">0</span> грн.</br></div><div style="margin-left: 100px;"><button class="glyphicon glyphicon-plus" name="addpizza"></button><span class=""> <b>1</b> </span> шт.<button class="glyphicon glyphicon-minus" name="delpizza"></button></div><br>');
+                $("#" + i + " > div > a > span").html("Пицца " + idArr[i]["namePizza"]);
                 $("#" + i + " > div > .cart").html(idArr[i]["pricePizza"]);
                 $("#" + i + " > div > span > b").html(idArr[i]["countPizza"]);
+                $("#" + i + " > img").attr("src", "resources/foto/" + idArr[i]["pizzaFoto"]);
                 $("#" + i + " > div > .glyphicon-plus").attr("value", i);
                 $("#" + i + " > div > .glyphicon-minus").attr("value", i);
             }
