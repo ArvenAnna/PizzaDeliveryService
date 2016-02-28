@@ -12,26 +12,32 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Anna Entity represents order of customer
  */
 @Entity
 @Table(name = "pizzaOrder")
+@NamedQueries({
+    @NamedQuery(name = "Order.findByCustomerAndStatus", query = "SELECT o FROM Order o WHERE o.status =:status AND o.customer=:customer"),
+    @NamedQuery(name = "Order.findByStatus", query = "SELECT o FROM Order o WHERE o.status =:status"),
+    @NamedQuery(name = "Order.findById", query = "SELECT o FROM Order o WHERE o.id = :id")}
+)
 public class Order {
 
     @Id
@@ -40,7 +46,7 @@ public class Order {
     @Column(name = "id", nullable = false)
     Long id;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     List<OrderDetail> details = new ArrayList<>();
 
@@ -57,6 +63,9 @@ public class Order {
     @Temporal(value = TemporalType.DATE)
     @Column(name = "date")
     Date date;
+
+    @Column(name = "cost")
+    Integer cost;
 
     @Transient
     private final int MAX_PIZZAS_IN_ORDER = 10;
@@ -76,15 +85,15 @@ public class Order {
         checkForTooManyPizzasException((details.size()));
         this.details = details;
     }
-    
+
     public void addPizza(Pizza pizza) {
         checkForTooManyPizzasException(details.size() + 1);
-            details.add(new OrderDetail(pizza.price, pizza));
+        details.add(new OrderDetail(pizza.price, pizza));
     }
-    
+
     public void removePizza(Long id) {
         for (OrderDetail det : details) {
-            if(det.pizza.id.equals(id)){
+            if (det.pizza.id.equals(id)) {
                 details.remove(det);
                 return;
             }
@@ -120,7 +129,6 @@ public class Order {
         }
     }
 
-    
     public Long getId() {
         return id;
     }
@@ -131,6 +139,14 @@ public class Order {
 
     public void setRates(List<Rate> rates) {
         this.rates = rates;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
 
     public void setId(Long id) {

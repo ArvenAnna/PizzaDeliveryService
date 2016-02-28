@@ -2,6 +2,7 @@ package anna.pizzadeliveryservice.service;
 
 import anna.pizzadeliveryservice.domain.Customer;
 import anna.pizzadeliveryservice.domain.Order;
+import java.util.Set;
 
 /**
  * @author Anna
@@ -9,7 +10,7 @@ import anna.pizzadeliveryservice.domain.Order;
  */
 public interface OrderService {
 
-    Order placeNewOrder(Order order);
+    Order saveOrder(Order order);
     
     Order addPizzasToOrder(Order order, Long... pizzaID);
     
@@ -20,5 +21,13 @@ public interface OrderService {
     Order addCustomerToOrderByLogin(Order order, String login);
     
     Order addNewCustomerToOrder(Order order, Customer customer);
+    
+    Set<Order> findAllCustomersActualOrders(Customer customer);
+    
+    Set<Order> findAllActualOrders();
+    
+    Order changeOrderStatus(Long orderId, Order.Status status);
+    
+    Order findOrderById(Long orderId);
 
 }

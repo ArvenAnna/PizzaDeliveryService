@@ -17,6 +17,10 @@
                 <sec:authorize access="hasRole('ROLE_CUSTOMER')">
                 <li><a href="account">Мой профиль</a></li>
                 </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="adminmenu">Меню</a></li>
+                <li><a href="adminorders">Актуальные заказы</a></li>
+                </sec:authorize>
         </ul>
         <sec:authorize access="isAnonymous()">
             <form action="login" method="POST">

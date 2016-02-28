@@ -56,4 +56,11 @@
     <definition name="account" extends="template" >
         <put-attribute name="grid_6-18" value="/WEB-INF/views/account.jsp" />
     </definition>
+    
+     <definition name="admin/menu" extends="template" >
+        <put-attribute name="grid_6-18" value="/WEB-INF/views/admin_menu.jsp" />
+    </definition>
+     <definition name="admin/orders" extends="template" >
+        <put-attribute name="grid_6-18" value="/WEB-INF/views/admin_orders.jsp" />
+    </definition>
 </tiles-definitions>
