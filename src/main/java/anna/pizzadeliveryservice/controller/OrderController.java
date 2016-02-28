@@ -62,6 +62,7 @@ public class OrderController {
             Principal principal) {
         Map<String, Object> json = new HashMap<>();
         Order order = (Order) session.getAttribute("order");
+
         if (order == null) {
             System.out.println("empty");
             order = new Order();
@@ -73,6 +74,7 @@ public class OrderController {
             }
         }
         try {
+            System.out.println(order);
             orderServ.addPizzasToOrder(order, Long.parseLong(id));
             System.out.println(order);
             session.setAttribute("order", order);
@@ -153,14 +155,15 @@ public class OrderController {
                 System.out.println(order);
                 model.addAttribute("accepted", true);
                 session.removeAttribute("order");
-                model.addAttribute("order", orderServ.placeNewOrder(order));
+                model.addAttribute("order", orderServ.saveOrder(order));
 
                 view = "order_accepted";
             }
         } else {
-            model.addAttribute("empty_order_saving", true);
+            //model.addAttribute("empty_order_saving", true);
             System.out.println("error-----------");
-            view = "error_massage";
+            //view = "error_massage";
+            view = "homepage";
         }
         return view;
 

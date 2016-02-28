@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
-public class PizzaListController {
+public class PizzaController {
     
     private PizzaService pizzaServ;
 
     @Autowired
-    public PizzaListController(PizzaService pizzaServ) {
+    public PizzaController(PizzaService pizzaServ) {
         this.pizzaServ = pizzaServ;
     }
     
-    @RequestMapping(value = {"/our_pizzas"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/our_pizzas"})
     public String showPizzaList(Model model){
         model.addAttribute("somePizzas", pizzaServ.chooseAllAvailablePizzas());
         return "pizza_list";

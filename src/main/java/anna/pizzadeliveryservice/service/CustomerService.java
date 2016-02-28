@@ -1,6 +1,9 @@
 package anna.pizzadeliveryservice.service;
 
+import anna.pizzadeliveryservice.domain.Address;
 import anna.pizzadeliveryservice.domain.Customer;
+import anna.pizzadeliveryservice.domain.Order;
+import java.util.Set;
 
 /**
  * @author Anna
@@ -11,5 +14,9 @@ public interface CustomerService {
     Customer findCustomerByLogin(String login);
     
     Customer placeNewCustomer(Customer customer);
+    
+    Customer changeTelephoneByLogin(String login, String tel);
+    
+    Customer changeAddressByLogin(String login, Address address);
  
 }

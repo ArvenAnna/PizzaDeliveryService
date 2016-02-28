@@ -1,7 +1,9 @@
 package anna.pizzadeliveryservice.service;
 
+import anna.pizzadeliveryservice.domain.Address;
 import anna.pizzadeliveryservice.domain.Card;
 import anna.pizzadeliveryservice.domain.Customer;
+import anna.pizzadeliveryservice.domain.Order;
 import anna.pizzadeliveryservice.domain.UserRole;
 import anna.pizzadeliveryservice.exception.NoSuchEntityException;
 import anna.pizzadeliveryservice.repository.CustomerRepository;
@@ -19,9 +21,6 @@ import org.springframework.stereotype.Service;
 public class SimpleCustomerService implements CustomerService {
 
     private CustomerRepository customerRepository;
-
-    public SimpleCustomerService() {
-    }
 
     @Autowired
     public SimpleCustomerService(CustomerRepository customerRepository) {
@@ -44,4 +43,19 @@ public class SimpleCustomerService implements CustomerService {
         customer.getAccount().setRoles(roles);
         return customerRepository.addNew(customer);
     }
+
+    @Override
+    public Customer changeTelephoneByLogin(String login, String tel) {
+        Customer customer = findCustomerByLogin(login);
+        customer.setTel(tel);
+        return customerRepository.update(customer);
+    }
+
+    @Override
+    public Customer changeAddressByLogin(String login, Address address) {
+        Customer customer = findCustomerByLogin(login);
+        customer.setAddress(address);
+        return customerRepository.update(customer);
+    }
+
 }

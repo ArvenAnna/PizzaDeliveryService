@@ -29,6 +29,9 @@ public class JpaCustomerRepository implements CustomerRepository{
         query.setParameter("login", login);
         System.out.println(login);
         List<Customer> elementList = query.getResultList();
+        for(Customer cust:elementList){
+            System.out.println(cust.getAccount());
+        }
         return CollectionUtils.isEmpty(elementList) ? null : elementList.get(0);
     }
 
@@ -54,8 +57,8 @@ public class JpaCustomerRepository implements CustomerRepository{
     }
 
     @Override
-    public Customer update(Customer entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Customer update(Customer customer) {
+        return em.merge(customer);
     }
 
     @Override

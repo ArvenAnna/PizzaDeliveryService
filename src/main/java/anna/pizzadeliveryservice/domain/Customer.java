@@ -29,7 +29,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
     @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
     @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name"),
-    @NamedQuery(name = "Customer.findByLogin", query = "SELECT c FROM Customer c, Account a WHERE a.username = :login")})
+    @NamedQuery(name = "Customer.findByLogin", query = "SELECT c FROM Customer c, Account a WHERE c.account = a.id AND a.username = :login")})
 public class Customer {
 
     @Id
@@ -41,7 +41,7 @@ public class Customer {
     @Column(name = "name")
     String name;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_ADDRESS",
             foreignKeyDefinition = "FOREIGN KEY (address_id) REFERENCES public.address (id) "
             + "MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
