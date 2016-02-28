@@ -58,4 +58,9 @@ public class SimpleCustomerService implements CustomerService {
         return customerRepository.update(customer);
     }
 
+    @Override
+    public Customer changeCustomersInformation(Customer customer) {
+        return customerRepository.update(customer);
+    }
+
 }

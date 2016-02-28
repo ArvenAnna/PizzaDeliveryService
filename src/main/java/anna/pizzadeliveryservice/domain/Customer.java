@@ -47,7 +47,7 @@ public class Customer {
             + "MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))
     Address address;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "card_id", foreignKey = @ForeignKey(name = "FK_CUSTOMER_TO_CARD",
             foreignKeyDefinition = "FOREIGN KEY (card_id) "
             + "REFERENCES public.card (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))

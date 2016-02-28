@@ -97,7 +97,16 @@ public class SimpleOrderService implements OrderService {
 
     @Override
     public Order changeOrderStatus(Long orderId, Order.Status status) {
+        
         Order order = orderRepository.findById(orderId);
+        
+        if(status.equals(Order.Status.DONE)){
+            Customer customer = order.getCustomer();
+            customer.getCard().setSum(customer.getCard().getSum() + order.getRateCost());
+            customerService.changeCustomersInformation(customer);
+            order.setCost(order.getRateCost());
+        }
+        
         order.setStatus(status);
         order = orderRepository.update(order);
         setRates(order);
