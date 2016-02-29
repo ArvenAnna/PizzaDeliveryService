@@ -10,7 +10,7 @@
 
 <div class="row" style="margin-top: 10px;">
     pizza1
-    <form action="removeSession" method="POST">
+    <form action="${path}/app/order/removeSession" method="POST">
         <button type="submit">очистить</button>
         <sec:csrfInput />
     </form>

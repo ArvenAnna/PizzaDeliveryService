@@ -8,8 +8,10 @@ import java.util.Set;
  * Interface for service classes working with pizza
  */
 public interface PizzaService {
-    void addPizza(Pizza pizza);
+    Pizza addPizzaToMenu(Pizza pizza);
     Pizza find(Long id);
     Set<Pizza> chooseRandomSomePizzas();
     Set<Pizza> chooseAllAvailablePizzas();
+    Pizza removePizzaFromMenu(Long id);
+    Pizza changePizzaInformation(Pizza pizza);
 }

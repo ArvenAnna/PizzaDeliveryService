@@ -15,24 +15,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.Principal;
 import java.util.HashMap;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.context.request.WebRequest;
 
 /**
  *
  * @author Anna
  */
 @Controller
+@RequestMapping(value = "/order")
 public class OrderController {
 
     private CustomerService customerServ;
@@ -160,18 +157,10 @@ public class OrderController {
                 view = "order_accepted";
             }
         } else {
-            //model.addAttribute("empty_order_saving", true);
             System.out.println("error-----------");
-            //view = "error_massage";
-            view = "homepage";
+            view = "redirect:homepage";
         }
         return view;
-
-//        for (GrantedAuthority authority : getAuthentication().
-//                getAuthorities()) {
-//            if (authority.getAuthority().equals("ROLE_USER")) {
-//                return false;
-//            }
     }
 
     @RequestMapping(value = "/addcustomer", method = RequestMethod.POST)
@@ -205,29 +194,4 @@ public class OrderController {
         return "redirect:acceptorder";
     }
 
-    protected Authentication getAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
-
-    //public ResponseEntity<String> method(HttpEntity<String> entity) {…}
-//    @RequestMapping(method = RequestMethod.POST, value = "/emp")
-//    public @ResponseBody
-//    Employee addEmp(@RequestBody Employee e) {
-//        employeeDS.add(e);
-//        return e;
-//    }
-//
-//    @RequestMapping(method = RequestMethod.PUT, value = "/emp/{id}")
-//    public @ResponseBody
-//    Employee updateEmp(
-//            @RequestBody Employee e, @PathVariable String id) {
-//        employeeDS.update(e);
-//        return e;
-//    }
-//
-//    @RequestMapping(method = RequestMethod.DELETE, value = "/emp/{id}")
-//    public @ResponseBody
-//    void removeEmp(@PathVariable String id) {
-//        employeeDS.remove(Long.parseLong(id));
-//    }
 }

@@ -17,7 +17,7 @@
     <div class="col-lg-18" style="top: 40px;">
         <h4>Если Вы уже в теме - залогиньтесь, если нет - заполните форму ниже.</h4>
         <sec:authorize access="isAnonymous()">
-            <spring:form method="POST" action="addcustomer" modelAttribute="customer" commandName="customer">
+            <spring:form method="POST" action="${path}/app/order/addcustomer" modelAttribute="customer" commandName="customer">
 
                 <div class="row" style="margin-top: 50px">
                     <div class="col-lg-5">
@@ -76,9 +76,6 @@
                     </div>
                 </spring:form>
 
-
-            </sec:authorize>
-            <sec:authorize access="isAuthenticated()">
 
             </sec:authorize>
         </div>

@@ -13,7 +13,7 @@
     <span class="errorMessage" style=""></span>
     <div class="" id="basket" style="">
         <div id="divbasket">
-            <img class="typeImage" src="resources/foto/cart.jpg" alt="Pizza image" style="margin-left: 40px"/><br><br>
+            <img class="typeImage" src="${path}/resources/foto/cart.jpg" alt="Pizza image" style="margin-left: 40px"/><br><br>
         </div>
         <div class="summ" style="text-align: center;"> 
             Сумма заказа: <span class="summ1" style=""><b>0</b></span> грн.</br>
@@ -23,7 +23,7 @@
 
     </div>
 
-    <form action="acceptorder" method="POST" >
+    <form action="${path}/app/order/acceptorder" method="POST" >
         <input id="submitOrder" disabled="disabled" type="submit" class="btn btn-success" style="margin-left: 80px" value="Оформить заказ"/>
         <sec:csrfInput />
     </form>

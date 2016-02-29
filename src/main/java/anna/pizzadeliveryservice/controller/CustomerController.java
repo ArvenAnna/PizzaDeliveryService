@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Anna
  */
 @Controller
+@RequestMapping(value = "/customer")
 public class CustomerController {
 
     private CustomerService customerServ;

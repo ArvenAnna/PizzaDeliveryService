@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-    $(".addPizza").on('click', {url: "addpizza", except: "В Вашей корзине слишком много пицц"}, editPizzaButtons);
+    $(".addPizza").on('click', {url: "${path}/app/order/addpizza", except: "В Вашей корзине слишком много пицц"}, editPizzaButtons);
     showOrder();
 });
 

@@ -12,23 +12,23 @@
         <div class="row">
             <div class="col-lg-17">
                 <ul class="nav navbar-nav">
-                    <li><a href="homepage">Главная страница</a></li>
-                    <li><a href="our_pizzas">Наши пиццы</a></li>
-                    <li><a href="delivery">Доставка</a></li>
-                    <li><a href="discount">Акции</a></li>
-                    <li><a href="contacts">Контакты</a></li>
+                    <li><a href="${path}/app/homepage">Главная страница</a></li>
+                    <li><a href="${path}/app/pizza/our_pizzas">Наши пиццы</a></li>
+                    <li><a href="${path}/app/static/delivery">Доставка</a></li>
+                    <li><a href="${path}/app/static/discount">Акции</a></li>
+                    <li><a href="${path}/app/static/contacts">Контакты</a></li>
                         <sec:authorize access="hasRole('ROLE_CUSTOMER')">
-                        <li><a href="account">Мой профиль</a></li>
+                        <li><a href="${path}/app/customer/account">Мой профиль</a></li>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <li><a href="adminmenu">Меню</a></li>
-                        <li><a href="adminorders">Актуальные заказы</a></li>
+                        <li><a href="${path}/app/admin/pizza/menu">Меню</a></li>
+                        <li><a href="${path}/app/admin/order/orders">Актуальные заказы</a></li>
                         </sec:authorize>
                 </ul>
             </div>
             <div class="col-lg-7">
                 <sec:authorize access="isAnonymous()">
-                    <form action="login" method="POST" class="form-inline" style="margin-top: 10px;">
+                    <form action="${path}/app/login" method="POST" class="form-inline" style="margin-top: 10px;">
                         <input id="username_or_email" name="username" type="text" />     <!-- Поле ввода имени пользователя -->
                         <input id="password" name="password" type="password" />  <!-- Поле ввода пароля -->
                         <input id="remember_me" name="_spring_security_remember_me" type="checkbox"/>   <!-- Флажок "запомнить меня" -->
@@ -41,7 +41,7 @@
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
-                    <form action="logout" method="POST" style="margin-left: 280px; margin-top: 10px;">
+                    <form action="${path}/app/logout" method="POST" style="margin-left: 280px; margin-top: 10px;">
                         <input type="submit" value="Log out"/>
                         <sec:csrfInput />
                     </form>

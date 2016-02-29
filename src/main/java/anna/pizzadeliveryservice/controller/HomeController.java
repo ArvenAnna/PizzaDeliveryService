@@ -49,7 +49,7 @@ public class HomeController {
         p.setFoto("Margarita.png");
         p.setPrice(50);
         p.setPizzaType(Pizza.PizzaType.Meat);        
-        pizzaServ.addPizza(p);
+        pizzaServ.addPizzaToMenu(p);
         
         p = new Pizza();
         p.setName("Labradu");
@@ -57,7 +57,7 @@ public class HomeController {
         p.setFoto("Labradu.png");
         p.setPrice(45);
         p.setPizzaType(Pizza.PizzaType.Vegetarian);       
-        pizzaServ.addPizza(p);  
+        pizzaServ.addPizzaToMenu(p);
         
         p = new Pizza();
         p.setName("Solina");
@@ -65,7 +65,7 @@ public class HomeController {
         p.setFoto("Solina.png");
         p.setPrice(56);
         p.setPizzaType(Pizza.PizzaType.Sea);
-        pizzaServ.addPizza(p); 
+        pizzaServ.addPizzaToMenu(p);
         
         p = new Pizza();
         p.setName("Razzya");
@@ -73,7 +73,7 @@ public class HomeController {
         p.setFoto("Razzya.png");
         p.setPrice(130);
         p.setPizzaType(Pizza.PizzaType.Sea);
-        pizzaServ.addPizza(p);
+        pizzaServ.addPizzaToMenu(p);
         
         p = new Pizza();
         p.setName("Lubu");
@@ -81,7 +81,7 @@ public class HomeController {
         p.setFoto("Lubu.png");
         p.setPrice(75);
         p.setPizzaType(Pizza.PizzaType.Vegetarian);
-        pizzaServ.addPizza(p);
+        pizzaServ.addPizzaToMenu(p);
         
          p = new Pizza();
         p.setName("Polya");
@@ -89,7 +89,7 @@ public class HomeController {
         p.setFoto("Polya.png");
         p.setPrice(45);
         p.setPizzaType(Pizza.PizzaType.Meat);
-        pizzaServ.addPizza(p);
+        pizzaServ.addPizzaToMenu(p);
         
          p = new Pizza();
         p.setName("Missardis");
@@ -97,7 +97,7 @@ public class HomeController {
         p.setFoto("Misardis.png");
         p.setPrice(63);
         p.setPizzaType(Pizza.PizzaType.Sea);
-        pizzaServ.addPizza(p);
+        pizzaServ.addPizzaToMenu(p);
         
          p = new Pizza();
         p.setName("Furia");
@@ -105,7 +105,7 @@ public class HomeController {
         p.setFoto("Furia.png");
         p.setPrice(130);
         p.setPizzaType(Pizza.PizzaType.Meat);
-        pizzaServ.addPizza(p);
+        pizzaServ.addPizzaToMenu(p);
         
          p = new Pizza();
         p.setName("Sokoko");
@@ -113,7 +113,7 @@ public class HomeController {
         p.setFoto("Sokoko.png");
         p.setPrice(48);
         p.setPizzaType(Pizza.PizzaType.Meat);
-        pizzaServ.addPizza(p);
+        pizzaServ.addPizzaToMenu(p);
         
          p = new Pizza();
         p.setName("Pro");
@@ -121,6 +121,6 @@ public class HomeController {
         p.setFoto("Pro.png");
         p.setPrice(54);
         p.setPizzaType(Pizza.PizzaType.Vegetarian);
-        pizzaServ.addPizza(p);
+        pizzaServ.addPizzaToMenu(p);
     }
 }

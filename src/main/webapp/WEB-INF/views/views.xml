@@ -44,9 +44,7 @@
         <put-attribute name="grid_6-18" value="/WEB-INF/views/discount.jsp" />
     </definition>
     
-    <definition name="error_massage" extends="template" >
-        <put-attribute name="grid_6-18" value="/WEB-INF/views/error.jsp" />
-    </definition>
+
     <definition name="order_accepted" extends="template" >
         <put-attribute name="grid_6-18" value="/WEB-INF/views/order_accepted.jsp" />
     </definition>

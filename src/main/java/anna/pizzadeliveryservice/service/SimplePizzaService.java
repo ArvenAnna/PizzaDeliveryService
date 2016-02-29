@@ -39,8 +39,8 @@ public class SimplePizzaService implements PizzaService{
     }
 
     @Override
-    public void addPizza(Pizza pizza) {
-        pizzaRepository.addNew(pizza);
+    public Pizza addPizzaToMenu(Pizza pizza) {
+        return pizzaRepository.addNew(pizza);
     }
 
     @Override
@@ -53,5 +53,16 @@ public class SimplePizzaService implements PizzaService{
     @Override
     public Set<Pizza> chooseAllAvailablePizzas() {
         return pizzaRepository.findAll();
+    }
+
+    @Override
+    public Pizza removePizzaFromMenu(Long id) {
+        Pizza pizza = pizzaRepository.findById(id);
+        return pizzaRepository.remove(pizza);
+    }
+
+    @Override
+    public Pizza changePizzaInformation(Pizza pizza) {
+        return pizzaRepository.update(pizza);
     }
 }

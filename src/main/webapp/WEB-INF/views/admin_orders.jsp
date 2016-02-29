@@ -51,7 +51,7 @@
         var select = button.prev();
         var status = select.val();
         var data = {orderId: id, status: status};
-        ajaxTemplate("changestatus", data);
+        ajaxTemplate("${path}/app/admin/order/changestatus", data);
         // insert var status in tag with order.status
         return false;
     }

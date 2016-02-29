@@ -23,7 +23,7 @@
 
                     <c:forEach var="order" items="${orders}">
                         Номер заказа: ${order.id}
-                        <form action="cancelorder" method="POST">
+                        <form action="${path}/app/customer/cancelorder" method="POST">
                             <input type="hidden" name = "orderId" value="${order.id}"/>
                             <button type="submit" name ="cancel" class="btn btn-danger">Отменить заказ</button>
                             <sec:csrfInput />
@@ -45,7 +45,7 @@
                         Сумма к оплате:  ${order.rateCost}<br>
 
 
-                        <form action="continueshoping" method="POST">
+                        <form action="${path}/app/customer/continueshoping" method="POST">
                             <input type="hidden" name = "orderId" value="${order.id}"/>
                             <button type="submit" name ="continue" class="btn btn-success">Продолжить покупки</button>
                             <sec:csrfInput />
@@ -72,14 +72,14 @@
 
     function changeTel(event) {
         var tel = "463563053";
-        ajaxTemplate("changetel", tel);
+        ajaxTemplate("${path}/app/customer/changetel", tel);
         return false;
     }
     ;
 
     function changeAddress(event) {
         var address = JSON.stringify({city: "dfsdafasd", street: "hdgka"});
-        ajaxTemplate("changeaddress", address);
+        ajaxTemplate("${path}/app/customer/changeaddress", address);
         return false;
     }
     ;
