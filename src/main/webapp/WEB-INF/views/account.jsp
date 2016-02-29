@@ -54,11 +54,45 @@
                     </c:forEach>
                 </c:if>
             </div>
-            <div class="col-lg-10">
+            <div class="col-lg-14">
                 <h5>Ваши контактные данные:</h5>
                 <ol>
-                    <li><span>телефон: ${customer.tel}</span><a id="tel" href=""> Изменить</a></li>
-                    <li><span>адрес: ${customer.address.city}, ${customer.address.street}, ${customer.address.house}, ${customer.address.apartment}</span><a id= "address" href=""> Изменить</a></li>
+                    <li>
+                        <span>телефон: <span>${customer.tel}</span></span><a id="tel" href=""> Изменить</a>
+                        <table class="table" style="display: none">
+                            <tbody>
+                                <tr>
+                                    <td>Измените телефон:</td>
+                                    <td><input type="text" size="40" value="${customer.tel}"></td>
+                                    <td><button type="submit" class="accept btn btn-success glyphicon glyphicon-ok" value=""></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    <li>
+                        <span>адрес: <span>${customer.address.city}</span>, <span>${customer.address.street}</span>, <span>${customer.address.house}</span>, <span>${customer.address.apartment}</span></span><a id="address" href=""> Изменить</a>
+                        <table class="table" style="display: none">
+                            <tbody>
+                                <tr>
+                                    <td>Измените город:</td>
+                                    <td><input class="city" type="text" size="40" value="${customer.address.city}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Измените улицу:</td>
+                                    <td><input class="street" type="text" size="40" value="${customer.address.street}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Измените дом:</td>
+                                    <td><input class="house" type="text" size="40" value="${customer.address.house}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Измените квартиру:</td>
+                                    <td><input class="appartment" type="text" size="40" value="${customer.address.apartment}"></td>
+                                    <td><button type="submit" class="accept btn btn-success glyphicon glyphicon-ok" value=""></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
                 </ol>
             </div>
         </div>
@@ -68,9 +102,40 @@
     $(document).ready(function () {
         $("#tel").on('click', changeTel);
         $("#address").on('click', changeAddress);
+        $("#tel+table>tbody>tr>td>button").on("click", addTel);
+        $("#address+table>tbody>tr>td>button").on("click", addAddress);
     });
 
+    function addTel(event) {
+        var newTel = $("#tel+table>tbody>tr>td>input").val();
+        var prevEl = $("#tel").prev();
+        var chPrevElem = $(prevEl).children();
+        chPrevElem.each(function (i, nel) {
+            var sp = $(nel);
+            sp.text(newTel);
+        });
+        $("#tel+table").css({"display": "none"});
+    }
+    ;
+
+    function addAddress(event) {
+        var newCity = $("#address+table>tbody>tr>td>.city").val();
+        var newStreet = $("#address+table>tbody>tr>td>.street").val();
+        var newHouse = $("#address+table>tbody>tr>td>.house").val();
+        var newAppartment = $("#address+table>tbody>tr>td>.appartment").val();
+        var arrAddress = [newCity, newStreet, newHouse, newAppartment];
+        var prevElAddress = $("#address").prev();
+        var chPrevElemAddress = $(prevElAddress).children();
+        chPrevElemAddress.each(function (i, nel) {
+            var sp = $(nel);
+            sp.text(arrAddress[i]);
+        });
+        $("#address+table").css({"display": "none"});
+    }
+    ;
+
     function changeTel(event) {
+        $("#tel+table").css({"display": "table"});
         var tel = "463563053";
         ajaxTemplate("${path}/app/customer/changetel", tel);
         return false;
@@ -78,6 +143,7 @@
     ;
 
     function changeAddress(event) {
+        $("#address+table").css({"display": "table"});
         var address = JSON.stringify({city: "dfsdafasd", street: "hdgka"});
         ajaxTemplate("${path}/app/customer/changeaddress", address);
         return false;

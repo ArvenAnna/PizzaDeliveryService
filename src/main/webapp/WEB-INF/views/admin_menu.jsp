@@ -80,6 +80,7 @@
                     $(elem).html(select);
                     select = $(elem).children();
                     var options = select.children();
+                    
                     options.each(function (i, nel) {
                         var opt = $(nel).text();
                         if(opt == text){
