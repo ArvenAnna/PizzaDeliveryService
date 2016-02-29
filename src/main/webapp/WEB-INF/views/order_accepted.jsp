@@ -14,15 +14,17 @@
 
     </div>
     <div class="col-lg-18" style="top: 40px;">
-        <span class="" style="">Вы заказали <span class="" style="">${order.details.size()}</span> пицц:</span></br>
+        <b><span class="" style="">Вы заказали пицц: <span class="" style="">${order.details.size()}</span> шт.</span></b></br>
         <c:forEach var="detail" items="${order.details}">
+            <hr/>
             Название: <span class="cart" style="">${detail.pizza.name}</span><br>
             Цена: <span class="cart" style="">${detail.price}</span> грн.<br>
+            <hr/>
         </c:forEach>
-        <div style="text-align: center;"> 
+        
             Сумма: <span class="" style=""><b>${order.pureCost}</b></span> грн.</br>
-            Всего к оплате: <span class="" style=""><b>${order.rateCost}</b></span> грн.</br>
-        </div>
+            <b>Всего к оплате: <span class="" style=""><b>${order.rateCost}</b></span> грн.</b></br>
+        
     </div>
 </div>
 

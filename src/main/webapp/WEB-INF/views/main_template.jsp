@@ -79,8 +79,6 @@
             }
 
             function jsonProcessing(data) {
-                //alert(JSON.stringify(data, " ", 4));
-
                 if (data["exception"]) {
                     $(".errorMessage").html("<span style='color: red; font-weight: bold'>" + event.data.except + "</span>");
                 } else {
@@ -119,6 +117,11 @@
                             $("#" + i + " > div > .glyphicon-minus").attr("value", i);
                         }
                     }
+                    $(".summ1").html(data['order']['rateCost']);
+                    $(".summ2").html(data['order']['pureCost']);
+                    $(".countItems").html(data['order']['details'].length);
+                    $(".glyphicon-plus").on('click', {url: "${path}/app/order/addpizza", except: "В Вашей корзине слишком много пицц"}, editPizzaButtons);
+                    $(".glyphicon-minus").on('click', {url: "${path}/app/order/delpizza", except: "В Вашей корзине уже нет пицц"}, editPizzaButtons);
                 }
             }
             ;

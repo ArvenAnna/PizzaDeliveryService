@@ -10,9 +10,9 @@
 
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="row">
-            <div class="col-lg-17">
+            <div class="col-lg-16">
                 <ul class="nav navbar-nav">
-                    <li><a href="${path}/app/homepage">Главная страница</a></li>
+                    <li><a href="${path}/app/homepage">Главная</a></li>
                     <li><a href="${path}/app/pizza/our_pizzas">Наши пиццы</a></li>
                     <li><a href="${path}/app/static/delivery">Доставка</a></li>
                     <li><a href="${path}/app/static/discount">Акции</a></li>
@@ -26,7 +26,7 @@
                         </sec:authorize>
                 </ul>
             </div>
-            <div class="col-lg-7">
+            <div class="col-lg-8">
                 <sec:authorize access="isAnonymous()">
                     <form action="${path}/app/login" method="POST" class="form-inline" style="margin-top: 10px;">
                         <input id="username_or_email" name="username" type="text" />     <!-- Поле ввода имени пользователя -->

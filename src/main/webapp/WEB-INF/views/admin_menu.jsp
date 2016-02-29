@@ -12,8 +12,8 @@
     <div class="col-lg-6">
 
     </div>
-    <div class="col-lg-18" style="top: 40px;">
-        <table class="table table-bordered table-striped">
+    <div class="col-lg-2" style="top: 40px;">
+        <table class="table table-responsive table-bordered table-striped" style="width: 500px">
             <thead>
                 <tr>
                     <th>№</th>
@@ -39,8 +39,8 @@
                 </c:forEach>
                 <tr id="new">
                     <td></td>
-                    <td><input id="name" type="text"/></td>
-                    <td><input id="price" type="text"/></td>
+                    <td><input id="name" type="text" size="10"/></td>
+                    <td><input id="price" type="text" size="3"/></td>
                     <td>
                         <select id="pizzaType">
                             <c:forEach var="type" items="${pizzaTypes}">
