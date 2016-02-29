@@ -29,7 +29,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
- * @author Anna Entity represents order of customer
+ * @author Anna 
+ * Entity represents order of customer
  */
 @Entity
 @Table(name = "pizzaOrder")

@@ -6,7 +6,6 @@ import anna.pizzadeliveryservice.exception.TooManyPizzasException;
 import anna.pizzadeliveryservice.service.CustomerService;
 import anna.pizzadeliveryservice.service.OrderService;
 import anna.pizzadeliveryservice.validator.CustomerValidator;
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,17 +14,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.Principal;
 import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.context.request.WebRequest;
 
 /**
- *
+ * Controller for order proccessing
  * @author Anna
  */
 @Controller
@@ -59,9 +63,7 @@ public class OrderController {
             Principal principal) {
         Map<String, Object> json = new HashMap<>();
         Order order = (Order) session.getAttribute("order");
-
         if (order == null) {
-            System.out.println("empty");
             order = new Order();
             orderServ.setRates(order);
         }
@@ -71,9 +73,7 @@ public class OrderController {
             }
         }
         try {
-            System.out.println(order);
             orderServ.addPizzasToOrder(order, Long.parseLong(id));
-            System.out.println(order);
             session.setAttribute("order", order);
         } catch (TooManyPizzasException e) {
             json.put("exception", "TooManyPizzaException");
@@ -92,7 +92,6 @@ public class OrderController {
         } else {
             json.put("order", order);
         }
-        System.out.println(json);
         return json;
     }
 
@@ -123,42 +122,25 @@ public class OrderController {
         return json;
     }
 
-    @RequestMapping(value = "/removeSession", method = RequestMethod.POST)
-    public String sessionInvalidate(HttpSession session) {
-        session.invalidate();
-        return "home";
-    }
-
     @RequestMapping(value = "/acceptorder")
-    public String acceptOrder(HttpSession session, Principal principal, Model model) {
-
+    public String acceptOrder(HttpSession session, Principal principal, Model model,
+            WebRequest request) {
         String view;
         Order order = (Order) session.getAttribute("order");
-        System.out.println("accept_order");
         if (order != null) {
-            System.out.println("order not null");
-            System.out.println(order);
             if (order.getCustomer() == null && principal == null) {
-                //model.addAttribute("customer", new Customer());
                 view = "registration";
-                System.out.println("cusomer and principal null");
             } else {
                 if (order.getCustomer() == null) {
-                    System.out.println("principal not null");
-                    System.out.println(order);
                     orderServ.addCustomerToOrderByLogin(order, principal.getName());
                 }
-                System.out.println("vsyo ok");
-                System.out.println(order);
                 model.addAttribute("accepted", true);
                 session.removeAttribute("order");
                 model.addAttribute("order", orderServ.saveOrder(order));
-
                 view = "order_accepted";
             }
         } else {
-            System.out.println("error-----------");
-            view = "redirect:homepage";
+            view = "redirect:/app/homepage";
         }
         return view;
     }
@@ -166,32 +148,29 @@ public class OrderController {
     @RequestMapping(value = "/addcustomer", method = RequestMethod.POST)
     public String registrateCustomer(Model model,
             @ModelAttribute("customer") Customer customer,
-            BindingResult resultCustomer, HttpSession session) throws UnsupportedEncodingException {
+            BindingResult resultCustomer, HttpSession session, HttpServletRequest request) {
 
         accountValidator.validate(customer, resultCustomer);
         if (resultCustomer.hasErrors()) {
             model.addAttribute("customer", customer);
             return "registration";
         }
-
         String login = customer.getAccount().getUsername();
         String password = customer.getAccount().getPassword();
-        System.out.println(password);
-        UsernamePasswordAuthenticationToken authRequest
-                = new UsernamePasswordAuthenticationToken(login, password);
-
-        // Authenticate the user
-        //Authentication authentication = authenticationManager.authenticate(authRequest);
-        //SecurityContext securityContext = SecurityContextHolder.getContext();
-        //securityContext.setAuthentication(authentication);
-        // Create a new session and add the security context.
-        //session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
         customer = customerServ.placeNewCustomer(customer);
+
+        UsernamePasswordAuthenticationToken token
+                = new UsernamePasswordAuthenticationToken(login, password);
+        request.getSession();
+        token.setDetails(new WebAuthenticationDetails(request));
+        Authentication auth = authenticationManager.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
         Order order = (Order) session.getAttribute("order");
         order.setCustomer(customer);
         session.setAttribute("order", order);
-        //model.addAttribute(order);
-        return "redirect:acceptorder";
+
+        return "redirect:/app/order/acceptorder";
     }
 
 }

@@ -116,7 +116,7 @@ function jsonProcessing(data) {
                 $("#" + i + " > div > a > span").html("Пицца " + idArr[i]["namePizza"]);
                 $("#" + i + " > div > .cart").html(idArr[i]["pricePizza"]);
                 $("#" + i + " > div > span > b").html(idArr[i]["countPizza"]);
-                $("#" + i + " > img").attr("src", "resources/foto/" + idArr[i]["pizzaFoto"]);
+                $("#" + i + " > img").attr("src", "${path}/resources/foto/" + idArr[i]["pizzaFoto"]);
                 $("#" + i + " > div > .glyphicon-plus").attr("value", i);
                 $("#" + i + " > div > .glyphicon-minus").attr("value", i);
             }

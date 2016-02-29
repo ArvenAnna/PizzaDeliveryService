@@ -2,7 +2,6 @@ package anna.pizzadeliveryservice.repository;
 
 import anna.pizzadeliveryservice.domain.Customer;
 import anna.pizzadeliveryservice.domain.UserRole;
-import java.util.Set;
 
 /**
  * @author Anna
@@ -10,6 +9,11 @@ import java.util.Set;
  */
 public interface CustomerRepository extends BasicCrudOperations<Customer>{
 
+    /**
+     * Finds customer by account login
+     * @param login given login
+     * @return found customer
+     */
     Customer findByAccountLogin(String login);
     /**
      * Finds UserRole object using name of role

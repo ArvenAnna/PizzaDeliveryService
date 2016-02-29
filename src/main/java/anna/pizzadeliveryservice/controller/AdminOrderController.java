@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- *
+ * Controller for order administration
  * @author Anna
  */
 
@@ -40,8 +40,7 @@ public class AdminOrderController {
         model.addAttribute("statuses", statuses);
         return "admin/orders";
     }
-    
-    
+        
     @RequestMapping(value = "/changestatus", method = RequestMethod.POST,
             headers = "Accept=application/json")
     @ResponseBody

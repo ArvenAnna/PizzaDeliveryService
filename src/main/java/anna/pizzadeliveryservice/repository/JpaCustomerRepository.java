@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 /**
- *
+ * Implementation of customer repository for JPA
  * @author Anna
  */
 

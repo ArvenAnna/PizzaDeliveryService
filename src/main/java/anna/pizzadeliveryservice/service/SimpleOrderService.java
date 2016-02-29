@@ -2,12 +2,9 @@ package anna.pizzadeliveryservice.service;
 
 import anna.pizzadeliveryservice.domain.Customer;
 import anna.pizzadeliveryservice.domain.Order;
-import anna.pizzadeliveryservice.domain.OrderDetail;
-import anna.pizzadeliveryservice.domain.Pizza;
 import anna.pizzadeliveryservice.domain.rate.Rate;
 import anna.pizzadeliveryservice.exception.NoSuchEntityException;
 import anna.pizzadeliveryservice.repository.OrderRepository;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Anna Implementation of service working with customer
+ * Implementation of service working with customer
+ *
+ * @author Anna
  */
 @Service
 public class SimpleOrderService implements OrderService {
@@ -97,16 +96,16 @@ public class SimpleOrderService implements OrderService {
 
     @Override
     public Order changeOrderStatus(Long orderId, Order.Status status) {
-        
+
         Order order = orderRepository.findById(orderId);
-        
-        if(status.equals(Order.Status.DONE)){
+
+        if (status.equals(Order.Status.DONE)) {
             Customer customer = order.getCustomer();
             customer.getCard().setSum(customer.getCard().getSum() + order.getRateCost());
             customerService.changeCustomersInformation(customer);
             order.setCost(order.getRateCost());
         }
-        
+
         order.setStatus(status);
         order = orderRepository.update(order);
         setRates(order);

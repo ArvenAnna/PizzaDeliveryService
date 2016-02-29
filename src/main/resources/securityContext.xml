@@ -18,7 +18,7 @@
         <intercept-url pattern="/app/pizza/**" access="permitAll" />
         <intercept-url pattern="/app/order/**" access="permitAll"  />
         <intercept-url pattern="/app/signin" access="permitAll"  />
-                
+               
         <form-login login-page="/app/signin"
                     login-processing-url="/app/login"
                     authentication-success-handler-ref="authenticationSuccessHandler"
@@ -30,7 +30,6 @@
     <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
         <beans:property name="useReferer" value="true" />
     </beans:bean>
-
   
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
@@ -40,16 +39,7 @@
                                authorities-by-username-query=
             "select a.username,ur.rolename from public.account as a, public.userrole as ur, public.userrole_account as ua where  a.id = ua.account_id and ur.id = ua.userrole_id and username=?;"
             />
-            <!--                        <user-service>
-                <user name="test" password="test" authorities="ROLE_USER"/>
-                <user name="test1" password="test1" authorities="ROLE_A"/>
-            </user-service>-->
         </authentication-provider>
     </authentication-manager>
-    
-    <!--<beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
-        <beans:property name="defaultTargetUrl" value="/app/contacts"/>
-        <beans:property name="targetUrlParameter" value="spring-security-redirect"/>
-    </beans:bean>-->
 
 </beans:beans>

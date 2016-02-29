@@ -1,15 +1,9 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package anna.pizzadeliveryservice.dto;
 
 import anna.pizzadeliveryservice.domain.Order;
 
 /**
- *
+ * DTO object for order status changing
  * @author Anna
  */
 public class OrderDto {
@@ -39,7 +33,5 @@ public class OrderDto {
     @Override
     public String toString() {
         return "OrderDto{" + "orderId=" + orderId + ", status=" + status + '}';
-    }
-    
-    
+    }   
 }
