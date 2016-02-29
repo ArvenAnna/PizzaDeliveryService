@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- *
+ * Controller for pizza displaying
  * @author Anna
  */
 
@@ -27,5 +27,5 @@ public class PizzaController {
         model.addAttribute("somePizzas", pizzaServ.chooseAllAvailablePizzas());
         return "pizza_list";
     }
-    
+   
 }

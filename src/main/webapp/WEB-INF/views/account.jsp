@@ -108,6 +108,7 @@
 
     function addTel(event) {
         var newTel = $("#tel+table>tbody>tr>td>input").val();
+        ajaxTemplate("${path}/app/customer/changetel", newTel);
         var prevEl = $("#tel").prev();
         var chPrevElem = $(prevEl).children();
         chPrevElem.each(function (i, nel) {
@@ -123,6 +124,9 @@
         var newStreet = $("#address+table>tbody>tr>td>.street").val();
         var newHouse = $("#address+table>tbody>tr>td>.house").val();
         var newAppartment = $("#address+table>tbody>tr>td>.appartment").val();
+        var address ={city: newCity, street: newStreet, house: newHouse, apartment: newAppartment};
+        address = JSON.stringify(address);
+        ajaxTemplate("${path}/app/customer/changeaddress", address);    
         var arrAddress = [newCity, newStreet, newHouse, newAppartment];
         var prevElAddress = $("#address").prev();
         var chPrevElemAddress = $(prevElAddress).children();
@@ -136,16 +140,12 @@
 
     function changeTel(event) {
         $("#tel+table").css({"display": "table"});
-        var tel = "463563053";
-        ajaxTemplate("${path}/app/customer/changetel", tel);
         return false;
     }
     ;
 
     function changeAddress(event) {
         $("#address+table").css({"display": "table"});
-        var address = JSON.stringify({city: "dfsdafasd", street: "hdgka"});
-        ajaxTemplate("${path}/app/customer/changeaddress", address);
         return false;
     }
     ;

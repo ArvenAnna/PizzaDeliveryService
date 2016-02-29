@@ -1,16 +1,12 @@
 package anna.pizzadeliveryservice.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 import javax.annotation.PreDestroy;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,11 +14,9 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Anna
- * Entity represents address of customer
+ * Entity represents acustomer's ddress
  */
 
-import javax.persistence.ForeignKey;
-import javax.persistence.OneToOne;
 @Component
 @Entity 
 @Table(name = "address")

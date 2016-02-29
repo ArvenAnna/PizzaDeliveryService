@@ -7,6 +7,7 @@ import anna.pizzadeliveryservice.domain.Order;
  * Interface for any type of rates
  */
 public interface Rate {
+    
     /**
      * Calculates rate for given order
      * @param order - order object for which rate will be calculated

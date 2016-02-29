@@ -9,9 +9,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-//перевести енам из джавы в БД
-
-
 /**
  * Implementation of pizza repository for JPA
  * @author Anna

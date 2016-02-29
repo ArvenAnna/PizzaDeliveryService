@@ -6,6 +6,5 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <header>
-    <h1>Pizza</h1>
-    <span>the best pizza</span>
+    <h1>Наши лучшие пиццы</h1>
 </header>

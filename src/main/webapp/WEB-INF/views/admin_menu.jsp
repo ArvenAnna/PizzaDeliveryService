@@ -49,7 +49,7 @@
                         </select>
                     </td>
                     <td><input type="text" id="description"/></td>
-                    <td><input type="text" id="foto"/></td>
+                    <td><input type="file" id="foto"/></td>
                     <td><button id ="add" class="btn btn-success glyphicon glyphicon-ok"></button></td>
                     <td></td>
                 </tr>
@@ -64,6 +64,54 @@
         $(".remove").on('click', removePizza);
         $("#add").on('click', addNewPizza);
         $(".pizzarow").on('click', showInputs);
+        $("#foto").on('change', prepareLoad);
+
+        var files = "";
+
+        function prepareLoad(event)
+        {
+            files = event.target.files;
+        }
+
+        function processFileUpload()
+        {
+            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+            var csrfToken = $("meta[name='_csrf']").attr("content");
+            var headers = {};
+            headers[csrfHeader] = csrfToken;
+
+            var oMyForm = new FormData();
+            oMyForm.append("file", files[0]);
+            $.ajax({
+                dataType: 'json',
+                url: "${path}/app/admin/pizza/upload",
+                data: oMyForm,
+                headers: headers,
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false
+            });
+        }
+
+        function addNewPizza(event) {
+            var name = $('#name').val();
+            var price = $('#price').val();
+            var pizzaType = $('#pizzaType').val();
+            var description = $('#description').val();
+            if (files == "") {
+                var foto = "";
+            } else {
+                var foto = files[0].name;
+            }
+            processFileUpload();
+            pizza = {name: name, price: price, pizzaType: pizzaType, description: description, foto: foto};
+            ajaxAdd("${path}/app/admin/pizza/addNewPizza", pizza);
+            $('#new input').val("");
+            return false;
+        }
+        ;
+
     });
 
     function showInputs(event) {
@@ -73,41 +121,28 @@
         var inner = children.children();
         if (!inner.is('input')) {
             children.each(function (i, elem) {
-                if(i==3){
+                if (i == 3) {
                     var text = $(elem).text();
                     var oldSelect = $('#pizzaType');
-                    var select = "<select>"+oldSelect.html()+"</select>";
+                    var select = "<select>" + oldSelect.html() + "</select>";
                     $(elem).html(select);
                     select = $(elem).children();
                     var options = select.children();
                     
                     options.each(function (i, nel) {
                         var opt = $(nel).text();
-                        if(opt == text){
+                        if (opt == text) {
                             select.val(opt);
-                            
+
                         }
                     });
                 }
-                if (i==1 || i ==2 || i==4 || i==5) {
+                if (i == 1 || i == 2 || i == 4 || i == 5) {
                     $(elem).html("<input value = '" + $(elem).text() + "'/>");
                 }
             });
         }
 
-    }
-    ;
-
-    function addNewPizza(event) {
-        var name = $('#name').val();
-        var price = $('#price').val();
-        var pizzaType = $('#pizzaType').val();
-        var description = $('#description').val();
-        var foto = $('#foto').val();
-        pizza = {name: name, price: price, pizzaType: pizzaType, description: description, foto: foto};
-        ajaxAdd("${path}/app/admin/pizza/addNewPizza", pizza);
-        $('#new input').val("");
-        return false;
     }
     ;
 
@@ -119,20 +154,20 @@
         var input = children.children();
         if (input.is('input')) {
             var pizzaInfo = new Array();
-            
-            
-            pizzaInfo[0]=tr.attr('id');
-            
+
+
+            pizzaInfo[0] = tr.attr('id');
+
             input.each(function (i, elem) {
                 if (i < children.length - 2 && $(elem)) {
-                    pizzaInfo[i+1] = $(elem).val();
+                    pizzaInfo[i + 1] = $(elem).val();
                 }
             });
             var pizza = {id: pizzaInfo[0], name: pizzaInfo[1], price: pizzaInfo[2], pizzaType: pizzaInfo[3], description: pizzaInfo[4], foto: pizzaInfo[5]};
             alert(JSON.stringify(pizza));
             ajaxUpdate("${path}/app/admin/pizza/savePizza", pizza);
             children.each(function (i, elem) {
-                if (i>0 && i < children.length - 2) {
+                if (i > 0 && i < children.length - 2) {
                     $(elem).html("<td>" + pizzaInfo[i] + "</td>");
                 }
             });

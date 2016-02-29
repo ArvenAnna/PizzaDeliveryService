@@ -2,7 +2,6 @@ package anna.pizzadeliveryservice.domain;
 
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +16,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
- *
  * @author Anna
+ * Entity represents user account
  */
 @Entity
 @Table(name = "account")

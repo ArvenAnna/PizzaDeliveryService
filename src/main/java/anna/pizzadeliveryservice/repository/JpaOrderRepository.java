@@ -2,7 +2,6 @@ package anna.pizzadeliveryservice.repository;
 
 import anna.pizzadeliveryservice.domain.Customer;
 import anna.pizzadeliveryservice.domain.Order;
-import anna.pizzadeliveryservice.domain.Pizza;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.EntityManager;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
+ * Implementation of order repository for JPA
  * @author Anna
  */
 @Repository
