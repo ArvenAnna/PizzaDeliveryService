@@ -22,8 +22,9 @@ public class FillDB {
     }
     
     @RequestMapping(value = "/fill")
-    public String showErrorLoginPage(){
+    public String fillPizzas(){
         System.out.println("filled");
+        fillPizzaTable();
         return "home"; 
     }
 
