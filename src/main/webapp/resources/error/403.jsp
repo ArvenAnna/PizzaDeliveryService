@@ -1,9 +1,12 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
+
         <link href="resourses/bootstrap/css/bootstrap.css" rel="stylesheet">
         <link href="resourses/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+
         <title>Ошибка 403 - доступ запрещен</title>
     </head>
     <body style="background-color:#fff">

@@ -19,8 +19,8 @@
                     <th>Статус</th>
                     <th>Клиент</th>
                     <th>Детали</th>
-                    <th>Цена</th>
-                    <th>К оплате</th>
+                    <th>Сумма</th>
+                    <th>Со скидкой</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@
                     <tr>
                         <td>${order.id}</td>
                         <td>${order.date}</td>
-                        <td>${order.status}</td>
+                        <td >${order.status}</td>
                         <td>
                             <button class="customer_button glyphicon glyphicon-menu-down"> ${order.customer.name}</button>
                             <table class="table table-bordered" style="display: none">
@@ -113,7 +113,6 @@
     function ajaxTemplate(url, data) {
 
         data = JSON.stringify(data);
-        alert(data);
 
         var csrfHeader = $("meta[name='_csrf_header']").attr("content");
         var csrfToken = $("meta[name='_csrf']").attr("content");
@@ -155,12 +154,24 @@
     function setStatus(event) {
         var button = $(event.target);
         var id = button.val();
-        alert(id);
-        var select = button.prev();
-        var status = select.val();
+        var td = button.parent();
+        var previoustd = td.prev();
+        var select = previoustd.children();
+        var status;
+        select.each(function (i, nel) {
+            status = $(nel).val();
+            return;
+        });
         var data = {orderId: id, status: status};
         ajaxTemplate("${path}/app/admin/order/changestatus", data);
-        // insert var status in tag with order.status
+        var tr = td.parent();
+        var tds = tr.children();
+        tds.each(function (i, nel) {
+            if(i==2){
+                $(nel).html(status);
+                return;
+            }
+        });
         return false;
     }
     ;

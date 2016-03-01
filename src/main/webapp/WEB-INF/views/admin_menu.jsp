@@ -12,8 +12,8 @@
     <div class="col-lg-6">
 
     </div>
-    <div class="col-lg-18" style="top: 40px;">
-        <table class="table table-bordered table-striped">
+    <div class="col-lg-2" style="top: 40px;">
+        <table class="table table-responsive table-bordered table-striped" style="width: 500px">
             <thead>
                 <tr>
                     <th>№</th>
@@ -39,8 +39,8 @@
                 </c:forEach>
                 <tr id="new">
                     <td></td>
-                    <td><input id="name" type="text"/></td>
-                    <td><input id="price" type="text"/></td>
+                    <td><input id="name" type="text" size="10"/></td>
+                    <td><input id="price" type="text" size="3"/></td>
                     <td>
                         <select id="pizzaType">
                             <c:forEach var="type" items="${pizzaTypes}">
@@ -137,9 +137,16 @@
                         }
                     });
                 }
-                if (i == 1 || i == 2 || i == 4 || i == 5) {
+                if (i == 1 || i == 4) {
+                    $(elem).html("<input size='10' value = '" + $(elem).text() + "'/>");
+                }
+                if (i == 2) {
+                    $(elem).html("<input size='3' value = '" + $(elem).text() + "'/>");
+                }
+                if (i == 5) {
                     $(elem).html("<input value = '" + $(elem).text() + "'/>");
                 }
+                
             });
         }
 
@@ -164,7 +171,6 @@
                 }
             });
             var pizza = {id: pizzaInfo[0], name: pizzaInfo[1], price: pizzaInfo[2], pizzaType: pizzaInfo[3], description: pizzaInfo[4], foto: pizzaInfo[5]};
-            alert(JSON.stringify(pizza));
             ajaxUpdate("${path}/app/admin/pizza/savePizza", pizza);
             children.each(function (i, elem) {
                 if (i > 0 && i < children.length - 2) {

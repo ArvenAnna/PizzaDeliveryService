@@ -8,13 +8,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<div class="row" style="margin-top: 10px;">
-    pizza1
-    <form action="${path}/app/order/removeSession" method="POST">
-        <button type="submit">очистить</button>
-        <sec:csrfInput />
-    </form>
-    
+<div class="row" style="margin-top: 30px;">
         <c:forEach var="pizza" items="${somePizzas}"> <!-- Цикл по списку сообщений -->
             <div style="width: 300px; background-color: yellow; margin: 5%; float:left; ">
                 <div >
