@@ -53,17 +53,18 @@ public class Pizza {
     public Pizza() {
     }
 
-    public Pizza(Long id, String name, PizzaType pizzaType, Integer price) {
+    public Pizza(Long id, String name, PizzaType pizzaType, Integer price, String description, String foto) {
         this.id = id;
         this.name = name;
         this.pizzaType = pizzaType;
         this.price = price;
+        this.description = description;
+        this.foto = foto;
     }
 
-    public Pizza(Long id, String name, PizzaType pizzaType) {
+    public Pizza(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.pizzaType = pizzaType;
     }
 
     public Long getId() {
@@ -117,11 +118,13 @@ public class Pizza {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.name);
-        hash = 41 * hash + Objects.hashCode(this.pizzaType);
-        hash = 41 * hash + Objects.hashCode(this.price);
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + Objects.hashCode(this.name);
+        hash = 73 * hash + Objects.hashCode(this.pizzaType);
+        hash = 73 * hash + Objects.hashCode(this.price);
+        hash = 73 * hash + Objects.hashCode(this.description);
+        hash = 73 * hash + Objects.hashCode(this.foto);
         return hash;
     }
 
@@ -140,6 +143,12 @@ public class Pizza {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.foto, other.foto)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -154,10 +163,9 @@ public class Pizza {
 
     @Override
     public String toString() {
-        return "Pizza{" + "id=" + id + ", name=" + name + ", pizzaType=" + 
-                pizzaType + ", price=" + price + '}';
+        return "Pizza{" + "id=" + id + ", name=" + name + ", pizzaType=" + pizzaType + ", price=" + price + ", description=" + description + ", foto=" + foto + '}';
     }
-    
+  
     public enum PizzaType {
         Vegetarian, Sea, Meat
     }

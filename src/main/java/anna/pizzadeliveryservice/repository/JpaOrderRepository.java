@@ -41,6 +41,7 @@ public class JpaOrderRepository implements OrderRepository {
     @Override
     public Order addNew(Order order) {
         em.persist(order);
+        em.flush();
         return order;
     }
 

@@ -5,6 +5,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
+            classpath:loggingContext.xml
             classpath:securityContext.xml
             classpath:repositoryContext.xml
             classpath:applicationContext.xml
