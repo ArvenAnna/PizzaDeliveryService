@@ -24,22 +24,25 @@
                     authentication-success-handler-ref="authenticationSuccessHandler"
                     authentication-failure-url="/app/signin?login_error"/> 
         <logout logout-url="/app/logout" invalidate-session="true" logout-success-url="/app/signin" />
-        <remember-me/>
+<!--        <remember-me/>-->
     </http>
     
     <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
         <beans:property name="useReferer" value="true" />
     </beans:bean>
   
-    <authentication-manager alias="authenticationManager">
-        <authentication-provider>
+    <authentication-manager alias="authenticationManager" >
+<!--        <authentication-provider>
             <jdbc-user-service data-source-ref="dataSource" 
                                users-by-username-query=
             "select username, password, availability from public.account where username=?;"
                                authorities-by-username-query=
             "select a.username,ur.rolename from public.account as a, public.userrole as ur, public.userrole_account as ua where  a.id = ua.account_id and ur.id = ua.userrole_id and username=?;"
             />
-        </authentication-provider>
+        </authentication-provider>-->
+        <authentication-provider ref="jpaAuthProvider"/>
     </authentication-manager>
+    
+    <beans:bean name="jpaAuthProvider" class="anna.pizzadeliveryservice.security.JpaAuthProvider"/>
 
 </beans:beans>

@@ -36,7 +36,7 @@ public class CustomerValidator implements Validator {
         Customer customer = (Customer) o;
         String username = customer.getAccount().getUsername();
         if (customerServ.findCustomerByLogin(username) != null) {
-            errors.rejectValue("account.username", "username.exist", "Username already exists");
+            errors.rejectValue("account.username", "username.exist", "Этот email занят");
         }
     }
 

@@ -1,5 +1,6 @@
 package anna.pizzadeliveryservice.domain;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
@@ -48,7 +49,7 @@ public class Account {
             = {
                 @JoinColumn(name = "userRole_id", foreignKey = @ForeignKey(name = "FK_USERROLE_TO_ACCOUNT_MANY", 
             foreignKeyDefinition = "FOREIGN KEY (userRole_id) REFERENCES public.userRole (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE"))})   
-    Set<UserRole> roles;
+    Set<UserRole> roles = new HashSet<>();
 
     public Account() {
     }
