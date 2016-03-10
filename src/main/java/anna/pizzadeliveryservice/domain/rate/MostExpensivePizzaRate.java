@@ -37,6 +37,9 @@ public class MostExpensivePizzaRate implements Rate{
     public String getName() {
         return name;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "MostExpensivePizzaRate{" + "name=" + name + '}';
+    } 
 }

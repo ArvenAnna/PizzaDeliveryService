@@ -1,7 +1,6 @@
 package anna.pizzadeliveryservice.domain;
 
 import java.util.Objects;
-import javax.annotation.PreDestroy;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,7 +26,6 @@ public class Address {
     @Column(name = "id", nullable = false) 
     Long id;
     
-    @Value("Kiev")
     @Column(name = "city")
     String city;
     
@@ -46,11 +43,6 @@ public class Address {
 
     public Address(String city) {
         this.city = city;
-    }
-
-    @PreDestroy
-    public void destroy() {
-        System.out.println("Destroy Address");
     }
 
     public long getId() {

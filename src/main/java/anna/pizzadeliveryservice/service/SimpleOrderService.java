@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * Implementation of service working with customer
- *
  * @author Anna
  */
 @Service

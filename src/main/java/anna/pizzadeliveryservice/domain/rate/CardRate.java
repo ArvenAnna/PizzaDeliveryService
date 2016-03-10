@@ -39,5 +39,10 @@ public class CardRate implements Rate{
     public String getName() {
         return name;
     }
-     
+
+    @Override
+    public String toString() {
+        return "CardRate{" + "name=" + name + '}';
+    }
+  
 }

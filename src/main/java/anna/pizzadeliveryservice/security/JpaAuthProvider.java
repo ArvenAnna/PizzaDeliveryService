@@ -41,11 +41,6 @@ public class JpaAuthProvider implements AuthenticationProvider {
         String passwd = auth.getCredentials().toString();
         Account account = findAccount(name);
         if (account == null || !account.getPassword().equals(passwd)) {
-            System.out.println(account.getUsername());
-            System.out.println(account.getPassword());
-            System.out.println(account.getAvailability());
-            System.out.println(account.getId());
-            System.out.println(account.getRoles());
             throw new BadCredentialsException("Bad Credentials");
         } else {
             List<GrantedAuthority> authorities = new ArrayList<>();
@@ -62,8 +57,6 @@ public class JpaAuthProvider implements AuthenticationProvider {
     }
 
     private Account findAccount(String name) {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("username", name);
         final String sql = "select ur.rolename, a.id, a.username, a.password, "
                 + "a.availability from public.account as a, "
                 + "public.userrole as ur, public.userrole_account as ua "
